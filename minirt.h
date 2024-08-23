@@ -6,15 +6,15 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/23 13:36:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:00:10 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include "libft.h"
-#include "vec3.h"
-#include "fdf.h"
+# include "fdf.h"
+# include "libft.h"
+# include "vec.h"
 
 #endif

@@ -4,7 +4,7 @@ LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM				= rm -rf
-VECTOR_NAMES	= vec3
+VECTOR_NAMES	= vec1 vec2
 VECTOR_UTILS	= $(patsubst %, vector/%, $(VECTOR_NAMES))
 FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
 				colors pts_utils line events window_utils\

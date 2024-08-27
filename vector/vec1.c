@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:27:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/23 16:07:12 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:11:34 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	print(t_vec v)
 	printf("Vector, x:%f y:%f z:%f\n", v.x, v.y, v.z);
 }
 
+float	get_length_squared(t_vec v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
 float	get_length(t_vec v)
 {
-	float	res;
-
-	res = v.x * v.x + v.y * v.y + v.z * v.z;
-	return (sqrtf(res));
+	return (sqrtf(get_length_squared(v)));
 }
 
 t_vec	*new_vector(float x, float y, float z)

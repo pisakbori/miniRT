@@ -1,5 +1,6 @@
 CC				= cc 
-CFLAGS			= -Wall -Werror -Wextra -I./mlx -I./libft -I./vector -I./fdf_utils -I. 
+LIBNAMES		= mlx libft vector fdf_utils shapes
+CFLAGS			= -Wall -Werror -Wextra  $(patsubst %, -I./%, $(LIBNAMES)) -I.
 LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
@@ -12,6 +13,8 @@ FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
+SHAPE_NAMES		= plane
+SHAPE_UTILS		= $(patsubst %, shapes/%, $(SHAPE_NAMES))
 FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) 
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a

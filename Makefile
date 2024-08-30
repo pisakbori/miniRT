@@ -10,13 +10,11 @@ LFLAGS			= $(MLX_LINUX_FLAGS) $(LIBFT_FLAGS)
 RM      		= rm -rf
 VECTOR_NAMES	= vec1 vec2
 VECTOR_UTILS	= $(patsubst %, vector/%, $(VECTOR_NAMES))
-FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
-				colors pts_utils line events window_utils\
-				collect_garbage color_utils
+FDF_NAMES		= colors utils
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
-FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state
+FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage sphere camera
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a

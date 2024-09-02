@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:56:33 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:30:32 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:38:28 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ void	assign(t_vec *dest, t_vec src)
 void	normalize(t_vec *v)
 {
 	divide_by_scalar(v, get_length(*v));
+}
+
+float	d_sq(t_point a, t_point b)
+{
+	float	d;
+
+	d = (a.x - b.x) * (a.x - b.x);
+	d += (a.y - b.y) * (a.y - b.y);
+	d += (a.z - b.z) * (a.z - b.z);
+	return (d);
 }

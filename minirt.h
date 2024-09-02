@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 12:02:42 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:41:05 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,57 +20,57 @@
 
 typedef t_vec	t_point;
 
-typedef struct s_line
-{
-	t_vec		r0;
-	t_vec		v;
+typedef struct s_line {
+  t_vec r0;
+  t_vec v;
 }				t_line;
 
 typedef t_line	t_plane;
 
-typedef struct s_sphere
-{
-	t_point		position;
-	float		radius;
+typedef struct s_sphere {
+  t_point position;
+  float radius;
 }				t_sphere;
 
-typedef struct s_shape
-{
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_color		color;
-	char		texture;
+typedef struct s_shape {
+  t_sphere *sphere;
+  t_plane *plane;
+  t_color color;
+  char texture;
 }				t_shape;
 
-typedef struct s_img_dim
-{
-	int			w;
-	int			h;
+typedef struct s_img_dim {
+  int w;
+  int h;
 }				t_img_dim;
 
-typedef struct s_camera
-{
-	t_point		view_point;
-	t_vec		orientation;
-	float		fov;
+typedef struct s_camera {
+  t_point view_point;
+  t_vec orientation;
+  float fov;
 }				t_camera;
 
-typedef struct s_ray
-{
-	t_vec		r0;
-	t_vec		v;
-	t_color		color;
+// lightsource
+typedef struct s_light {
+  t_point position;
+  t_color color;
+}				t_light;
+
+typedef struct s_ray {
+  t_vec r0;
+  t_vec v;
+  t_color color;
 }				t_ray;
 
-typedef struct s_state
-{
-	t_camera	cam;
-	t_img_dim	dim;
-	t_vec		cam_x;
-	t_vec		cam_y;
-	t_vec		cam_z;
-	t_shape		**shapes;
-	int			n_shapes;
+typedef struct s_state {
+  t_camera cam;
+  t_img_dim dim;
+  t_vec cam_x;
+  t_vec cam_y;
+  t_vec cam_z;
+  t_shape **shapes;
+  t_light lights[10];
+  int n_shapes;
 }				t_state;
 
 t_state			*state(void);
@@ -88,10 +88,13 @@ t_ray			create_camera_ray(int i, int j);
 void			set_camera_vectors(void);
 
 // tracing
-float			ray_hit(t_shape *s, t_ray *ray);
+float			ray_hit(t_shape *s, t_ray ray);
 int				minimum_distance(float *distances, int n);
-void			ray_color(t_ray *ray, t_color *color);
+void			ray_color(t_ray *ray);
 
 // test views
 void			put_test1_view(void);
+
+// light sources
+t_ray			shape_to_light(float time, t_ray camera_ray, t_light light_src);
 #endif

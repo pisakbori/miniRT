@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:57:12 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 12:15:28 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:55:41 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_ray	create_camera_ray(int i, int j)
 	scale(&temp, y);
 	add(&r.v, temp);
 	normalize(&(r.v));
+	r.color = (t_color){.r = 255, .g = 255, .b = 255};
 	return (r);
 }
 

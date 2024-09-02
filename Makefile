@@ -16,7 +16,7 @@ TEST_NAMES		= test 3planes
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
 FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage camera\
 					shapes/sphere shapes/plane\
-					trace
+					trace light_source
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:19:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:26:35 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:53:40 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@ void	copy_color(t_color *dst, t_color src)
 	dst->g = src.g;
 	dst->b = src.b;
 	dst->brightness = src.brightness;
+}
+void	normalize_color(t_color *dst)
+{
+	if (dst->r < 0)
+		dst->r = 0;
+	if (dst->g < 0)
+		dst->g = 0;
+	if (dst->b < 0)
+		dst->b = 0;
+	if (dst->r > 255)
+		dst->r = 255;
+	if (dst->g > 255)
+		dst->g = 255;
+	if (dst->b > 255)
+		dst->b = 255;
+}
+void	multiply_color(t_color *dst, t_color src)
+{
+	dst->r = (float)dst->r * ((float)src.r / 255.f);
+	dst->g = (float)dst->g * ((float)src.g / 255.f);
+	dst->b = (float)dst->b * ((float)src.b / 255.f);
+	dst->brightness *= src.brightness;
+	// normalize_color(dst);
 }
 
 // Divide r, g, b by 255
@@ -104,20 +127,4 @@ int	rgb_to_int(t_color c)
 	final_c += c.g << 8;
 	final_c += c.b;
 	return (final_c);
-}
-
-void	normalize_color(t_color *c)
-{
-	if (c->r > 255)
-		c->r = 255;
-	if (c->r < 0)
-		c->r = 0;
-	if (c->g > 255)
-		c->g = 255;
-	if (c->g < 0)
-		c->g = 0;
-	if (c->b > 255)
-		c->b = 255;
-	if (c->b < 0)
-		c->b = 0;
 }

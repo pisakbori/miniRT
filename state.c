@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:47:59 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:36:00 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:19:12 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	init_state(void)
 	t_color	color;
 	int		i;
 	t_point	sphere_pos;
+	t_point	plane_pos;
+	t_vec	normal;
+	t_color	grey;
 
 	state = ft_calloc(1, sizeof(t_state));
 	state->cam.view_point = (t_point){.x = 10, .y = 0, .z = 0};
@@ -46,18 +49,27 @@ void	init_state(void)
 		state->dim.h = 1;
 	*get_state_ptr() = state;
 	set_camera_vectors();
-	state->n_shapes = 3;
+	state->n_shapes = 5;
 	state->shapes = ft_calloc(state->n_shapes, sizeof(t_shape *));
 	sphere_pos = (t_point){.x = 0, .y = 0, .z = 0};
 	color = (t_color){.r = 255, .g = 0, .b = 0};
 	i = -1;
-	while (++i < state->n_shapes)
+	while (++i < 3)
 	{
 		state->shapes[i] = put_sphere(sphere_pos, color, 1.f);
 		state->shapes[i]->color.r -= 60 * i;
-		sphere_pos.x += 1.5f;
-		sphere_pos.y += 1.5f;
+		sphere_pos.x += 0.0f;
+		sphere_pos.y += 0.0f;
+		sphere_pos.z += 0.0f;
 	}
+	plane_pos = (t_point){.x = 0, .y = 0, .z = -100000.0f};
+	normal = (t_vec){.x = 0, .y = 0, .z = 1};
+	grey = (t_color){.r = 105, .g = 105, .b = 105};
+	state->shapes[3] = put_plane(plane_pos, normal, grey);
+	plane_pos = (t_point){.x = 0, .y = 0, .z = 0};
+	normal = (t_vec){.x = 0, .y = 1, .z = 0};
+	grey = (t_color){.r = 180, .g = 180, .b = 180};
+	state->shapes[4] = put_plane(plane_pos, normal, grey);
 }
 
 void	print_state(void)
@@ -86,6 +98,9 @@ void	print_state(void)
 		shape = state()->shapes[i];
 		printf("%d Shape. Color %d %d %d center: ", i, shape->color.r,
 				shape->color.g, shape->color.b);
-		print(shape->sphere->position);
+		if (shape->sphere)
+			print(shape->sphere->position);
+		else if (shape->plane)
+			print(shape->plane->r0);
 	}
 }

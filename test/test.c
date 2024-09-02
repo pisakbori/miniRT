@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:28:18 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:57:40 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ float	ray_hit(t_shape *s, t_ray *ray)
 {
 	if (s->sphere)
 		return (hit_sphere(*s->sphere, *ray));
-	// else if (s.plane)
-	// 	return (hit_plane(*s.plane, *ray));
+	else if (s->plane)
+		return (hit_plane(*s->plane, *ray));
 	return (NAN);
 }
 // -1 if nothing was hit

@@ -12,10 +12,11 @@ VECTOR_NAMES	= vec1 vec2
 VECTOR_UTILS	= $(patsubst %, vector/%, $(VECTOR_NAMES))
 FDF_NAMES		= colors utils
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
-TEST_NAMES		= test
+TEST_NAMES		= test 3planes
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
 FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage camera\
-					shapes/sphere shapes/plane
+					shapes/sphere shapes/plane\
+					trace
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a
@@ -25,13 +26,13 @@ OBJS			= $(patsubst %.c, %.o, $(SRC))
 
 # all: $(NAME)
 
-all: linux
+all: linux 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -O3 -c $< -o $@
 
-linux: $(OBJS)  $(MINILIBX_LINUX) $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME)
+linux: $(OBJS)  $(MINILIBX_LINUX) $(LIBFT) 
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME) && ./miniRT
 
 $(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(MINILIBX) $(LIBFT)

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:24:41 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:02:42 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,11 @@ t_shape			*put_plane(t_point position, t_vec normal, t_color color);
 t_ray			create_camera_ray(int i, int j);
 void			set_camera_vectors(void);
 
+// tracing
+float			ray_hit(t_shape *s, t_ray *ray);
+int				minimum_distance(float *distances, int n);
+void			ray_color(t_ray *ray, t_color *color);
+
+// test views
+void			put_test1_view(void);
 #endif

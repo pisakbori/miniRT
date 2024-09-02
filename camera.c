@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:57:12 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:32:44 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:15:28 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	set_camera_vectors(void)
 	t_vec	temp;
 	t_vec	up;
 
+	normalize(&state()->cam.orientation);
 	assign(&state()->cam_z, state()->cam.orientation);
 	up = (t_vec){.x = 0.f, .y = 0.f, .z = 1.f};
 	temp = cross(state()->cam.orientation, up);

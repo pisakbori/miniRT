@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:20:37 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:24:41 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ float			hit_plane(t_plane plane, t_ray ray);
 t_shape			*put_plane(t_point position, t_vec normal, t_color color);
 
 // camera
-t_ray			*create_camera_ray(int i, int j);
+t_ray			create_camera_ray(int i, int j);
 void			set_camera_vectors(void);
 
 #endif

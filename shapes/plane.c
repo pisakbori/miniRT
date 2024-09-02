@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:37:26 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:58:04 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:27:58 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,11 @@ t_shape	*put_plane(t_point position, t_vec normal, t_color color)
 // n(r_0 + v* t - rp) = 0
 float	hit_plane(t_plane plane, t_ray ray)
 {
-	t_vec	*temp;
 	float	t;
 
-	temp = clone(ray.r0);
-	scale(temp, -1.f);
-	add(temp, plane.v);
-	t = dot(plane.v, *temp);
-	free(temp);
+	scale(&ray.r0, -1.f);
+	add(&ray.r0, plane.v);
+	t = dot(plane.v, ray.r0);
 	t = t / dot(plane.v, ray.v);
 	if (t < 0)
 		return (NAN);

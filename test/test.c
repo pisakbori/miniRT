@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:57:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:25:53 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	img_mlx_pixel_put(t_vars v, int x, int y, int color)
 void	paint_pixels(t_vars *v)
 {
 	t_color	color;
-	t_ray	*ray;
+	t_ray	ray;
 	int		i;
 	int		j;
 
@@ -88,9 +88,8 @@ void	paint_pixels(t_vars *v)
 		while (++i < state()->dim.w)
 		{
 			ray = create_camera_ray(i, j);
-			ray_color(ray, &color);
+			ray_color(&ray, &color);
 			img_mlx_pixel_put(*v, i, j, rgb_to_int(color));
-			free(ray);
 		}
 	}
 }

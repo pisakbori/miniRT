@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:44:20 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/30 14:28:54 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:29:24 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,13 @@ float	hit_sphere(t_sphere sphere, t_ray ray)
 	float	a;
 	float	b;
 	float	c;
-	t_vec	*temp;
 	float	t;
 
 	a = dot(ray.v, ray.v);
-	temp = clone(sphere.position);
-	scale(temp, -1.f);
-	add(temp, ray.r0);
-	b = 2.f * dot(*temp, ray.v);
-	c = dot(*temp, *temp) - sphere.radius * sphere.radius;
-	free(temp);
+	scale(&sphere.position, -1.f);
+	add(&sphere.position, ray.r0);
+	b = 2.f * dot(sphere.position, ray.v);
+	c = dot(sphere.position, sphere.position) - sphere.radius * sphere.radius;
 	t = solve_quadratic(a, b, c);
 	return (t);
 }

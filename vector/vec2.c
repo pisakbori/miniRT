@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:56:33 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/29 11:06:22 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:30:32 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ float	dot(t_vec v1, t_vec v2)
 	return (res);
 }
 
-t_vec	*cross(t_vec u, t_vec v)
+t_vec	cross(t_vec u, t_vec v)
 {
-	t_vec	*res;
+	t_vec	res;
 
-	res = ft_calloc(1, sizeof(t_vec));
-	res->x = u.y * v.z - u.z * v.y;
-	res->y = u.z * v.x - u.x * v.z;
-	res->z = u.x * v.y - u.y * v.x;
+	res.x = u.y * v.z - u.z * v.y;
+	res.y = u.z * v.x - u.x * v.z;
+	res.z = u.x * v.y - u.y * v.x;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:29:11 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/29 11:07:45 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:30:19 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		scale(t_vec *v1, float s);
 void		divide_by_scalar(t_vec *v, float s);
 void		add(t_vec *v1, t_vec v2);
 float		dot(t_vec v1, t_vec v2);
-t_vec		*cross(t_vec u, t_vec v);
+t_vec		cross(t_vec u, t_vec v);
 void		normalize(t_vec *v);
 t_vec		*clone(t_vec v);
 void		assign(t_vec *dest, t_vec src);

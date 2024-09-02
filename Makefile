@@ -14,7 +14,8 @@ FDF_NAMES		= colors utils
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
-FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage sphere camera plane
+FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage camera\
+					shapes/sphere shapes/plane
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a

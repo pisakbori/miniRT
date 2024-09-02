@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:37:26 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:27:58 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:52:59 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ float	hit_plane(t_plane plane, t_ray ray)
 {
 	float	t;
 
-	scale(&ray.r0, -1.f);
-	add(&ray.r0, plane.v);
-	t = dot(plane.v, ray.r0);
+	t = dot(plane.v, plane.r0) - dot(plane.v, ray.r0);
 	t = t / dot(plane.v, ray.v);
 	if (t < 0)
 		return (NAN);

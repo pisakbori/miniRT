@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:25:53 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:42:02 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	ray_color(t_ray *ray, t_color *color)
 		copy_color(color, state()->shapes[i]->color);
 		return ;
 	}
-	color->r = 255;
-	color->g = 255;
-	color->b = 255;
+	color->r = 0;
+	color->g = 0;
+	color->b = 0;
 	// color->b = 255 * (1 - ray->v.z);
 	// normalize_color(color);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:27:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/29 10:58:54 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:20:29 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	scale(t_vec *v, float s)
 
 void	divide_by_scalar(t_vec *v, float s)
 {
-	scale(v, 1 / s);
+	scale(v, 1.f / s);
 }

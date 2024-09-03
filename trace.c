@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 19:02:23 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:17:26 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 {
 	int		j;
 	t_hit	shape_by_light;
-	t_hit	other_by_light;
+	t_hit	other_hit;
 	t_ray	ray2;
+	float	hit_other_distance;
 
 	if (i == -1)
 		return (0.f);
@@ -69,14 +70,17 @@ float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 	j = -1;
 	while (++j < state()->n_shapes)
 	{
-		other_by_light = ray_hit(state()->shapes[j], ray2);
-		if (j != i && !isnan(other_by_light.distance))
+		other_hit = ray_hit(state()->shapes[j], ray2);
+		if (!isnan(other_hit.distance))
 		{
-			if (d_sq(l.position, ray2.r0) > d_sq(l.position,
-													other_by_light.hit_point))
-				return (0);
+			hit_other_distance = d_sq(l.position, other_hit.hit_point);
+			if (d_sq(l.position, ray2.r0) - 0.001 > hit_other_distance)
+				return (0.f);
 		}
 	}
+	(void)j;
+	(void)hit_other_distance;
+	(void)other_hit;
 	return (shape_by_light.lambert);
 }
 
@@ -100,14 +104,10 @@ void	ray_color(t_ray *ray)
 	{
 		c = has_reflected_light(state()->lights[j], *ray, distances[i].distance,
 				i);
-		if (c > 0.f)
-		{
-			copy_color(&ray->color, state()->shapes[i]->color);
-			reflected = (t_color){.r = c * 255.f, .g = c * 255.f, .b = c
-				* 255.f};
-			multiply_color(&reflected, state()->lights[j].color);
-			multiply_color(&ray->color, reflected);
-		}
+		copy_color(&ray->color, state()->shapes[i]->color);
+		reflected = (t_color){.r = c * 255.f, .g = c * 255.f, .b = c * 255.f};
+		multiply_color(&reflected, state()->lights[j].color);
+		multiply_color(&ray->color, reflected);
 	}
 	free(distances);
 }

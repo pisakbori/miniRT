@@ -6,23 +6,26 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 17:04:03 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:02:23 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	ray_hit(t_shape *s, t_ray ray)
+t_hit	ray_hit(t_shape *s, t_ray ray)
 {
+	t_hit	res;
+
 	if (s->sphere)
 		return (hit_sphere(*s->sphere, ray));
 	else if (s->plane)
 		return (hit_plane(*s->plane, ray));
-	return (NAN);
+	res.distance = NAN;
+	return (res);
 }
 
 // -1 if nothing was hit
-int	minimum_distance(float *distances, int n)
+int	minimum_distance(t_hit *arr, int n)
 {
 	float	min_value;
 	int		index;
@@ -33,10 +36,10 @@ int	minimum_distance(float *distances, int n)
 	i = -1;
 	while (++i < n)
 	{
-		if (!isnan(distances[i]) && distances[i] < min_value)
+		if (!isnan(arr[i].distance) && arr[i].distance < min_value)
 		{
 			index = i;
-			min_value = distances[i];
+			min_value = arr[i].distance;
 		}
 	}
 	return (index);
@@ -51,50 +54,59 @@ t_vec	ray_in_t(t_ray r, float t)
 	add(&res, r.r0);
 	return (res);
 }
-char	is_shadowed(t_light l, t_ray ray, float distance, int i)
+
+float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 {
-	t_point	hit_point;
 	int		j;
-	float	t;
+	t_hit	shape_by_light;
+	t_hit	other_by_light;
 	t_ray	ray2;
 
 	if (i == -1)
-		return (0);
+		return (0.f);
 	ray2 = shape_to_light(distance, ray, l);
+	shape_by_light = ray_hit(state()->shapes[i], ray2);
 	j = -1;
 	while (++j < state()->n_shapes)
 	{
-		t = ray_hit(state()->shapes[j], ray2);
-		if (j != i && !isnan(t))
+		other_by_light = ray_hit(state()->shapes[j], ray2);
+		if (j != i && !isnan(other_by_light.distance))
 		{
-			hit_point = ray_in_t(ray2, t);
-			if (d_sq(l.position, ray2.r0) > d_sq(l.position, hit_point))
-				return (1);
+			if (d_sq(l.position, ray2.r0) > d_sq(l.position,
+													other_by_light.hit_point))
+				return (0);
 		}
 	}
-	return (0);
+	return (shape_by_light.lambert);
 }
 
 void	ray_color(t_ray *ray)
 {
-	float	*distances;
+	t_hit	*distances;
 	int		i;
+	int		j;
+	float	c;
+	t_color	reflected;
 
+	j = -1;
 	i = -1;
-	distances = ft_calloc(state()->n_shapes, sizeof(float));
+	distances = ft_calloc(state()->n_shapes, sizeof(t_hit));
 	while (++i < state()->n_shapes)
 	{
 		distances[i] = ray_hit(state()->shapes[i], *ray);
 	}
 	i = minimum_distance(distances, state()->n_shapes);
-	if (i != -1)
+	while (++j < 1)
 	{
-		if (is_shadowed(state()->lights[0], *ray, distances[i], i))
-			ray->color = (t_color){.r = 0, .g = 0, .b = 0};
-		else
+		c = has_reflected_light(state()->lights[j], *ray, distances[i].distance,
+				i);
+		if (c > 0.f)
 		{
-			multiply_color(&ray->color, state()->shapes[i]->color);
-			multiply_color(&ray->color, state()->lights[0].color);
+			copy_color(&ray->color, state()->shapes[i]->color);
+			reflected = (t_color){.r = c * 255.f, .g = c * 255.f, .b = c
+				* 255.f};
+			multiply_color(&reflected, state()->lights[j].color);
+			multiply_color(&ray->color, reflected);
 		}
 	}
 	free(distances);

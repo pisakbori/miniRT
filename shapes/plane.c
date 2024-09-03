@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:37:26 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:52:59 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:40:03 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ t_shape	*put_plane(t_point position, t_vec normal, t_color color)
 }
 
 // n(r_0 + v* t - rp) = 0
-float	hit_plane(t_plane plane, t_ray ray)
+t_hit	hit_plane(t_plane plane, t_ray ray)
 {
-	float	t;
+	t_hit	t;
 
-	t = dot(plane.v, plane.r0) - dot(plane.v, ray.r0);
-	t = t / dot(plane.v, ray.v);
-	if (t < 0)
-		return (NAN);
+	t.distance = dot(plane.v, plane.r0) - dot(plane.v, ray.r0);
+	t.distance = t.distance / dot(plane.v, ray.v);
+	if (t.distance < 0)
+		t.distance = NAN;
+	t.hit_point = ray_in_t(ray, t.distance);
+	t.lambert = dot(ray.v, plane.v);
 	return (t);
 }

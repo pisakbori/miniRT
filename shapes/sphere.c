@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:44:20 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 11:29:24 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:38:37 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,24 @@ float	solve_quadratic(float a, float b, float c)
 }
 
 // (r_0 + v*t - r_center) ^2 = R^2
-float	hit_sphere(t_sphere sphere, t_ray ray)
+t_hit	hit_sphere(t_sphere sphere, t_ray ray)
 {
 	float	a;
 	float	b;
 	float	c;
-	float	t;
+	t_hit	res;
+	t_vec	r;
 
 	a = dot(ray.v, ray.v);
+	r = sphere.position;
 	scale(&sphere.position, -1.f);
 	add(&sphere.position, ray.r0);
 	b = 2.f * dot(sphere.position, ray.v);
 	c = dot(sphere.position, sphere.position) - sphere.radius * sphere.radius;
-	t = solve_quadratic(a, b, c);
-	return (t);
+	res.distance = solve_quadratic(a, b, c);
+	res.hit_point = ray_in_t(ray, res.distance);
+	scale(&r, -1.f);
+	add(&r, res.hit_point);
+	res.lambert = dot(ray.v, r);
+	return (res);
 }

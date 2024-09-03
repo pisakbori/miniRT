@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:58:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 16:50:18 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:17:14 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ void	put_light_above(void)
 	light.position = (t_point){.x = 3, .y = 0, .z = 8};
 	light.color = (t_color){.r = 255, .g = 255, .b = 255};
 	state()->lights[0] = light;
+}
+
+void	put_light_x(void)
+{
+	t_light	light;
+
+	ft_bzero(state()->lights, sizeof(state()->lights));
+	light.position = (t_point){.x = 3, .y = 0, .z = 0};
+	light.color = (t_color){.r = 255, .g = 255, .b = 255};
+	state()->lights[1] = light;
 }
 
 void	put_test1_view(void)

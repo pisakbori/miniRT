@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_source.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 14:23:03 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 12:09:17 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/09/04 12:04:40 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/09/04 12:05:03 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_ray	shape_to_light(float time, t_ray ray, t_light light_src)
+float	solve_quadratic(float a, float b, float c)
 {
-	t_ray	new_ray;
-	t_vec	dir;
+	float	x1;
+	float	x2;
+	float	delta;
 
-	new_ray.r0 = ray.v;
-	scale(&new_ray.r0, time);
-	add(&new_ray.r0, ray.r0);
-	dir = new_ray.r0;
-	scale(&dir, -1.f);
-	add(&dir, light_src.pos);
-	normalize(&dir);
-	new_ray.v = dir;
-	return (new_ray);
+	delta = b * b - 4.f * a * c;
+	if (delta < 0)
+		return (NAN);
+	x1 = (-b + sqrtf(delta)) / (2.f * a);
+	x2 = (-b - sqrtf(delta)) / (2.f * a);
+	if (x2 > 0)
+		return (x2);
+	if (x1 > 0)
+		return (x1);
+	return (NAN);
 }

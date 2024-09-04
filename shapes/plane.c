@@ -6,13 +6,13 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 14:37:26 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/03 11:36:59 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:09:17 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_shape	*put_plane(t_point position, t_vec normal, t_color color)
+t_shape	*put_plane(t_point pos, t_vec normal, t_color color)
 {
 	t_plane	*p;
 	t_shape	*shape;
@@ -20,7 +20,7 @@ t_shape	*put_plane(t_point position, t_vec normal, t_color color)
 	shape = ft_calloc(1, sizeof(t_shape));
 	p = ft_calloc(1, sizeof(t_plane));
 	shape->plane = p;
-	p->r0 = position;
+	p->r0 = pos;
 	p->v = normal;
 	shape->color = color;
 	return (shape);

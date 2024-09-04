@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:47:59 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 12:18:00 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:09:17 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_state(void)
 	s = state();
 	printf("Image dimensions W=%d H=%d\n", s->dim.w, s->dim.h);
 	printf("Camera: \n");
-	printf("	position: %.2f %.2f %.2f\n", s->cam.view_point.x,
+	printf("	pos: %.2f %.2f %.2f\n", s->cam.view_point.x,
 				s->cam.view_point.y, s->cam.view_point.z);
 	printf("	Orientation: ");
 	print(s->cam.orientation);
@@ -66,8 +66,10 @@ void	print_state(void)
 		printf("%d Shape. Color %d %d %d center: ", i, shape->color.r,
 				shape->color.g, shape->color.b);
 		if (shape->sphere)
-			print(shape->sphere->position);
+			print(shape->sphere->pos);
 		else if (shape->plane)
 			print(shape->plane->r0);
+		else if (shape->cylinder)
+			print(shape->cylinder->pos);
 	}
 }

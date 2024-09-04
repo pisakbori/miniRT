@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 13:45:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:12:47 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 	init_state();
-	put_test1_view();
+	put_test2_view();
 	print_state();
 	v.mlx = mlx_init();
 	v.window = mlx_new_window(v.mlx, state()->dim.w, state()->dim.h, "miniRT");

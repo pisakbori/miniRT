@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/03 19:17:26 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:32:30 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_hit	ray_hit(t_shape *s, t_ray ray)
 		return (hit_sphere(*s->sphere, ray));
 	else if (s->plane)
 		return (hit_plane(*s->plane, ray));
+	else if (s->cylinder)
+		return (hit_cylinder(*s->cylinder, ray));
 	res.distance = NAN;
 	return (res);
 }
@@ -73,14 +75,11 @@ float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 		other_hit = ray_hit(state()->shapes[j], ray2);
 		if (!isnan(other_hit.distance))
 		{
-			hit_other_distance = d_sq(l.position, other_hit.hit_point);
-			if (d_sq(l.position, ray2.r0) - 0.001 > hit_other_distance)
+			hit_other_distance = d_sq(l.pos, other_hit.hit_point);
+			if (d_sq(l.pos, ray2.r0) - 0.001 > hit_other_distance)
 				return (0.f);
 		}
 	}
-	(void)j;
-	(void)hit_other_distance;
-	(void)other_hit;
 	return (shape_by_light.lambert);
 }
 

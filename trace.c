@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 14:32:30 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:41:27 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ray_color(t_ray *ray)
 		distances[i] = ray_hit(state()->shapes[i], *ray);
 	}
 	i = minimum_distance(distances, state()->n_shapes);
-	while (++j < 1)
+	while (++j < 1 && i != -1)
 	{
 		c = has_reflected_light(state()->lights[j], *ray, distances[i].distance,
 				i);

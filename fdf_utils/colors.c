@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:19:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 13:53:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:19:32 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ void	multiply_color(t_color *dst, t_color src)
 	dst->b = (float)dst->b * ((float)src.b / 255.f);
 	dst->brightness *= src.brightness;
 	// normalize_color(dst);
+}
+
+t_color	sum_color(t_color c1, t_color c2)
+{
+	t_color	res;
+
+	res.r = c1.r + c2.r;
+	res.g = c1.g + c2.g;
+	res.b = c1.b + c2.b;
+	res.brightness = c1.brightness + c2.brightness;
+	return (res);
+}
+
+void	scale_color(t_color *color, float s)
+{
+	color->r *= s;
+	color->g *= s;
+	color->b *= s;
+	color->brightness *= s;
 }
 
 // Divide r, g, b by 255

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/06 10:51:14 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:23:11 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_vec	ray_in_t(t_ray r, float t)
 	return (res);
 }
 
-float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
+float	reflected_light(t_light l, t_ray ray, float distance, int i)
 {
 	int		j;
 	t_hit	this_hit;
@@ -90,8 +90,10 @@ void	ray_color(t_ray *ray)
 	int		i;
 	int		j;
 	float	c;
-	t_color	reflected;
+	t_color	accumulated_light;
+	t_color	light_color;
 
+	// t_color	reflected;
 	j = -1;
 	i = -1;
 	distances = ft_calloc(state()->n_shapes, sizeof(t_hit));
@@ -100,14 +102,16 @@ void	ray_color(t_ray *ray)
 		distances[i] = ray_hit(state()->shapes[i], *ray);
 	}
 	i = minimum_distance(distances, state()->n_shapes);
-	while (++j < 1 && i != -1)
+	accumulated_light = ray->color;
+	while (++j < 2 && i != -1)
 	{
-		c = has_reflected_light(state()->lights[j], *ray, distances[i].distance,
-				i);
-		copy_color(&ray->color, state()->shapes[i]->color);
-		reflected = (t_color){.r = c * 255.f, .g = c * 255.f, .b = c * 255.f};
-		multiply_color(&reflected, state()->lights[j].color);
-		multiply_color(&ray->color, reflected);
+		light_color = state()->lights[j].color;
+		c = reflected_light(state()->lights[j], *ray, distances[i].distance, i);
+		scale_color(&light_color, c);
+		multiply_color(&light_color, state()->shapes[i]->color);
+		accumulated_light = sum_color(accumulated_light, light_color);
 	}
+	scale_color(&accumulated_light, 0.5f);
+	ray->color = accumulated_light;
 	free(distances);
 }

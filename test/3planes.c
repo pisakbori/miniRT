@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:58:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 13:06:54 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:23:24 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	put_test1_view(void)
 	state()->shapes = ft_calloc(state()->n_shapes, sizeof(t_shape *));
 	// put_camera_above();
 	put_camera_diagonal();
-	put_light_above();
+	put_light_above(0);
 	put_bottom_plane(0);
 	put_yz_plane(4);
 	put_red_sphere_x(1);

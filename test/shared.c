@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:02:54 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 16:17:55 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:26:16 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ void	put_camera_above(void)
 	set_camera_vectors();
 }
 
-void	put_light_above(void)
+void	put_light_above(int i)
 {
 	t_light	light;
 
-	ft_bzero(state()->lights, sizeof(state()->lights));
 	light.pos = (t_point){.x = 7, .y = 0, .z = 8};
 	light.color = (t_color){.r = 255, .g = 255, .b = 255};
-	state()->lights[0] = light;
+	state()->lights[i] = light;
 }
 
 void	put_camera_diagonal(void)
@@ -82,12 +81,11 @@ void	put_bottom_plane(int i)
 	state()->shapes[i] = put_plane(plane_pos, normal, grey);
 }
 
-// void	put_light_x(void)
-// {
-// 	t_light	light;
+void	put_light_x(int i)
+{
+	t_light	light;
 
-// 	ft_bzero(state()->lights, sizeof(state()->lights));
-// 	light.pos = (t_point){.x = 3, .y = 0, .z = 0};
-// 	light.color = (t_color){.r = 255, .g = 255, .b = 255};
-// 	state()->lights[1] = light;
-// }
+	light.pos = (t_point){.x = 2, .y = 7, .z = 8};
+	light.color = (t_color){.r = 255, .g = 255, .b = 255};
+	state()->lights[i] = light;
+}

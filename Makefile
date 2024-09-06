@@ -16,7 +16,7 @@ TEST_NAMES		= test 3planes has_cylinder shared
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
 FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state collect_garbage camera\
 					shapes/sphere shapes/plane shapes/cylinder shapes/utils\
-					trace light_source
+					trace light_source main
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a

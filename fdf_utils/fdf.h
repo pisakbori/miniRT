@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:47:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/02 13:48:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:43:23 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,7 @@ void			normalize_color(t_color *c);
 int				rgb_to_int(t_color c);
 void			copy_color(t_color *dst, t_color src);
 void			multiply_color(t_color *dst, t_color src);
+t_color			sum_color(t_color c1, t_color c2);
+void			scale_color(t_color *color, float s);
+
 #endif

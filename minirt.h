@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/05 16:07:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:23:08 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,13 @@ t_vec			ray_in_t(t_ray r, float t);
 void			put_test1_view(void);
 void			put_test2_view(void);
 void			put_camera_above(void);
-void			put_light_above(void);
+void			put_light_above(int i);
 void			put_camera_diagonal(void);
 void			put_red_sphere_x(int i);
 void			put_blue_sphere_y(int i);
 void			put_yz_plane(int i);
 void			put_bottom_plane(int i);
+void			put_light_x(int i);
 
 // light sources
 t_ray			light_to_shape(float time, t_ray camera_ray, t_light light_src);

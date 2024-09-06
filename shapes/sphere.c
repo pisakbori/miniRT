@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:44:20 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 15:00:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:58:43 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,22 @@ t_hit	hit_sphere(t_sphere sphere, t_ray ray)
 	float	b;
 	float	c;
 	t_hit	res;
+	t_vec	normal;
+	t_vec	r;
+	t_vec	reflected;
 
 	a = dot(ray.v, ray.v);
+	r = sphere.pos;
 	scale(&sphere.pos, -1.f);
 	add(&sphere.pos, ray.r0);
 	b = 2.f * dot(sphere.pos, ray.v);
 	c = dot(sphere.pos, sphere.pos) - sphere.r * sphere.r;
 	res.distance = solve_quadratic(a, b, c);
 	res.hit_point = ray_in_t(ray, res.distance);
-	res.lambert = dot(ray.v, sphere.pos);
-	if (res.lambert < 0)
-		res.lambert = 0;
+	normal = res.hit_point;
+	subtract(&normal, r);
+	reflected = ray.v;
+	scale(&reflected, -1.f);
+	res.lambert = dot(reflected, normal);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:27:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/03 14:20:29 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:13:40 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	print(t_vec v)
 
 float	get_length_squared(t_vec v)
 {
+	if (isnan(v.x) || isnan(v.y) || isnan(v.z))
+		return (NAN);
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 

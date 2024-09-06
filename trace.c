@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 17:41:27 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:51:14 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ t_vec	ray_in_t(t_ray r, float t)
 float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 {
 	int		j;
-	t_hit	shape_by_light;
+	t_hit	this_hit;
 	t_hit	other_hit;
 	t_ray	ray2;
 	float	hit_other_distance;
+	float	hit_this_distance;
 
-	if (i == -1)
-		return (0.f);
-	ray2 = shape_to_light(distance, ray, l);
-	shape_by_light = ray_hit(state()->shapes[i], ray2);
+	ray2 = light_to_shape(distance, ray, l);
+	this_hit = ray_hit(state()->shapes[i], ray2);
+	this_hit.hit_point = ray_in_t(ray, distance);
 	j = -1;
 	while (++j < state()->n_shapes)
 	{
@@ -76,11 +76,12 @@ float	has_reflected_light(t_light l, t_ray ray, float distance, int i)
 		if (!isnan(other_hit.distance))
 		{
 			hit_other_distance = d_sq(l.pos, other_hit.hit_point);
-			if (d_sq(l.pos, ray2.r0) - 0.001 > hit_other_distance)
+			hit_this_distance = d_sq(l.pos, this_hit.hit_point);
+			if (hit_other_distance + 0.02 < hit_this_distance)
 				return (0.f);
 		}
 	}
-	return (shape_by_light.lambert);
+	return (this_hit.lambert);
 }
 
 void	ray_color(t_ray *ray)

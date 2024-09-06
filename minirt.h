@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 17:06:57 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:07:40 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ typedef struct s_cylinder
 {
 	t_point		pos;
 	float		r;
+	float		r_square;
 	t_vec		axis;
 	float		h;
+	t_plane		top;
+	t_plane		bottom;
 }				t_cylinder;
 
 typedef struct s_shape
@@ -132,7 +135,7 @@ void			put_yz_plane(int i);
 void			put_bottom_plane(int i);
 
 // light sources
-t_ray			shape_to_light(float time, t_ray camera_ray, t_light light_src);
+t_ray			light_to_shape(float time, t_ray camera_ray, t_light light_src);
 
 // shape utils
 float			solve_quadratic(float a, float b, float c);

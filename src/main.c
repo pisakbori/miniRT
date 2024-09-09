@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/06 12:50:01 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:53:37 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	put_picture_to_window(t_vars *vars)
 int	close_win(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->window);
-	collect_pts_garbage(vars);
+	collect_mlx_garbage(vars);
 	exit(0);
 }
 

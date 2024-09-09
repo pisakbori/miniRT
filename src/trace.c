@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/06 14:23:11 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:56:19 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_vec	ray_in_t(t_ray r, float t)
 	return (res);
 }
 
-float	reflected_light(t_light l, t_ray ray, float distance, int i)
+float	reflected_light(t_vec light_pos, t_ray ray, float distance, int i)
 {
 	int		j;
 	t_hit	this_hit;
@@ -66,7 +66,7 @@ float	reflected_light(t_light l, t_ray ray, float distance, int i)
 	float	hit_other_distance;
 	float	hit_this_distance;
 
-	ray2 = light_to_shape(distance, ray, l);
+	ray2 = light_to_shape(distance, ray, light_pos);
 	this_hit = ray_hit(state()->shapes[i], ray2);
 	this_hit.hit_point = ray_in_t(ray, distance);
 	j = -1;
@@ -75,8 +75,8 @@ float	reflected_light(t_light l, t_ray ray, float distance, int i)
 		other_hit = ray_hit(state()->shapes[j], ray2);
 		if (!isnan(other_hit.distance))
 		{
-			hit_other_distance = d_sq(l.pos, other_hit.hit_point);
-			hit_this_distance = d_sq(l.pos, this_hit.hit_point);
+			hit_other_distance = d_sq(light_pos, other_hit.hit_point);
+			hit_this_distance = d_sq(light_pos, this_hit.hit_point);
 			if (hit_other_distance + 0.02 < hit_this_distance)
 				return (0.f);
 		}
@@ -86,32 +86,32 @@ float	reflected_light(t_light l, t_ray ray, float distance, int i)
 
 void	ray_color(t_ray *ray)
 {
-	t_hit	*distances;
+	t_hit	*hits;
 	int		i;
 	int		j;
 	float	c;
-	t_color	accumulated_light;
-	t_color	light_color;
+	t_color	sum;
+	t_light	light;
+	t_color	black;
 
-	// t_color	reflected;
 	j = -1;
 	i = -1;
-	distances = ft_calloc(state()->n_shapes, sizeof(t_hit));
+	hits = ft_calloc(state()->n_shapes, sizeof(t_hit));
 	while (++i < state()->n_shapes)
 	{
-		distances[i] = ray_hit(state()->shapes[i], *ray);
+		hits[i] = ray_hit(state()->shapes[i], *ray);
 	}
-	i = minimum_distance(distances, state()->n_shapes);
-	accumulated_light = ray->color;
+	i = minimum_distance(hits, state()->n_shapes);
+	black = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0};
+	sum = sum_color(black, state()->ambient[0].color);
 	while (++j < 2 && i != -1)
 	{
-		light_color = state()->lights[j].color;
-		c = reflected_light(state()->lights[j], *ray, distances[i].distance, i);
-		scale_color(&light_color, c);
-		multiply_color(&light_color, state()->shapes[i]->color);
-		accumulated_light = sum_color(accumulated_light, light_color);
+		light = state()->lights[j];
+		multiply_color(&light.color, state()->shapes[i]->color);
+		c = reflected_light(light.pos, *ray, hits[i].distance, i);
+		light.color.brightness *= c;
+		sum = sum_color(sum, light.color);
 	}
-	scale_color(&accumulated_light, 0.5f);
-	ray->color = accumulated_light;
-	free(distances);
+	ray->color = sum;
+	free(hits);
 }

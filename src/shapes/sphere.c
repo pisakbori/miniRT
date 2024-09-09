@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 16:44:20 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/05 14:58:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:33:36 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ t_shape	*put_sphere(t_point pos, t_color color, float r)
 	return (shape);
 }
 
+float	get_reflected_brightness(t_vec v, t_vec hit_point, t_vec r)
+{
+	t_vec	reflected;
+	t_vec	normal;
+
+	normal = hit_point;
+	subtract(&normal, r);
+	reflected = v;
+	scale(&reflected, -1.f);
+	return (dot(reflected, normal));
+}
+
 // (r_0 + v*t - r_center) ^2 = R^2
 t_hit	hit_sphere(t_sphere sphere, t_ray ray)
 {
@@ -33,9 +45,7 @@ t_hit	hit_sphere(t_sphere sphere, t_ray ray)
 	float	b;
 	float	c;
 	t_hit	res;
-	t_vec	normal;
 	t_vec	r;
-	t_vec	reflected;
 
 	a = dot(ray.v, ray.v);
 	r = sphere.pos;
@@ -45,10 +55,6 @@ t_hit	hit_sphere(t_sphere sphere, t_ray ray)
 	c = dot(sphere.pos, sphere.pos) - sphere.r * sphere.r;
 	res.distance = solve_quadratic(a, b, c);
 	res.hit_point = ray_in_t(ray, res.distance);
-	normal = res.hit_point;
-	subtract(&normal, r);
-	reflected = ray.v;
-	scale(&reflected, -1.f);
-	res.lambert = dot(reflected, normal);
+	res.lambert = get_reflected_brightness(ray.v, res.hit_point, r);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:56:33 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/03 16:31:32 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:18:13 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,6 @@ t_vec	cross(t_vec u, t_vec v)
 	res.y = u.z * v.x - u.x * v.z;
 	res.z = u.x * v.y - u.y * v.x;
 	return (res);
-}
-
-t_vec	*clone(t_vec v)
-{
-	t_vec	*r;
-
-	r = ft_calloc(1, sizeof(t_vec));
-	r->x = v.x;
-	r->y = v.y;
-	r->z = v.z;
-	return (r);
-}
-
-void	assign(t_vec *dest, t_vec src)
-{
-	dest->x = src.x;
-	dest->y = src.y;
-	dest->z = src.z;
 }
 
 void	normalize(t_vec *v)

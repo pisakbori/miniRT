@@ -6,15 +6,15 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 13:48:21 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:23:13 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "fdf.h"
 # include "libft.h"
+# include "mlx_utils.h"
 # include "vec.h"
 # include <math.h>
 
@@ -123,6 +123,13 @@ void				scale_color(t_color *color, float s);
 
 t_state				*state(void);
 void				init_state(void);
+
+// debug
+void				print_color(t_color color);
+void				print_vec(t_vec vector);
+void				print_ambient(t_ambient_light a);
+void				print_camera(t_camera c);
+void				print_light(t_light c);
 void				print_state(void);
 
 // shapes
@@ -130,6 +137,7 @@ t_shape				*put_sphere(t_point pos, t_color color, float r);
 t_hit				hit_sphere(t_sphere sphere, t_ray ray);
 t_shape				*put_cylinder(t_point pos, t_vec axis, t_color color,
 						float r, float h);
+float				get_distance(t_vec v_a, t_vec ra0, t_cylinder cylinder);
 t_hit				hit_cylinder(t_cylinder cylinder, t_ray ray);
 t_hit				hit_plane(t_plane plane, t_ray ray);
 t_shape				*put_plane(t_point pos, t_vec normal, t_color color);

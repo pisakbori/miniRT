@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/09/09 19:23:27 by bpisak-l         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
+t_shape	*put_cylinder(t_point pos, t_vec axis, t_color color, float d, float h)
+{
+	t_cylinder	*s;
+	t_shape		*shape;
+	t_vec		top_center;
+	t_vec		bottom_center;
+
+	shape = ft_calloc(1, sizeof(t_shape));
+	s = ft_calloc(1, sizeof(t_cylinder));
+	shape->cylinder = s;
+	s->pos = pos;
+	s->r = d / 2.f;
+	s->axis = axis;
+	s->h = h / 2.0f;
+	s->r_square = s->r * s->r;
+	scale(&axis, s->h);
+	top_center = pos;
+	bottom_center = pos;
+	add(&top_center, axis);
+	subtract(&bottom_center, axis);
+	scale(&axis, -1.f);
+	s->bottom = (t_plane){.r0 = bottom_center, .v = axis};
+	scale(&axis, -1.f);
+	s->top = (t_plane){.r0 = top_center, .v = axis};
+	shape->color = color;
+	return (shape);
+}
+
+float	get_distance(t_vec v_a, t_vec ra0, t_cylinder cylinder)
+{
+	float	a;
+	float	b;
+	float	c;
+
+	a = dot(v_a, v_a);
+	b = 2.f * dot(ra0, v_a);
+	c = dot(ra0, ra0) - cylinder.r_square;
+	return (solve_quadratic(a, b, c));
+}

@@ -7,14 +7,19 @@ MLX_LINUX_FLAGS	= -Lmlx_linux $(MINILIBX_LINUX) -Imlx_linux
 LFLAGS			= $(MLX_LINUX_FLAGS) $(LIBFT_FLAGS)
 # LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM				= rm -rf
-TEST_NAMES		= test/3planes test/has_cylinder test/shared test/debug
-FILES			= $(TEST_NAMES)\
+FILES			=	test/3planes\
+					test/has_cylinder\
+					test/shared1\
+					test/shared2\
+					test/debug_print1\
+					test/debug_print2\
 					state\
 					collect_garbage\
 					camera\
 					shapes/sphere\
 					shapes/plane\
-					shapes/cylinder\
+					shapes/cylinder1\
+					shapes/cylinder2\
 					shapes/utils\
 					trace\
 					light_source\
@@ -71,7 +76,7 @@ clean:
 	make clean -C mlx
 	make clean -C mlx_linux
 	make clean -C libft
-	rm -rf $(OBJS)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	make clean -C mlx

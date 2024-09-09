@@ -1,85 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   cylinder1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:58:50 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/06 11:14:56 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:22:43 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_shape	*put_cylinder(t_point pos, t_vec axis, t_color color, float d, float h)
+// ra0 =  s x (r0 - rc) x s
+t_vec	get_ra0(t_vec s, t_vec r0, t_vec rc)
 {
-	t_cylinder	*s;
-	t_shape		*shape;
-	t_vec		top_center;
-	t_vec		bottom_center;
-
-	shape = ft_calloc(1, sizeof(t_shape));
-	s = ft_calloc(1, sizeof(t_cylinder));
-	shape->cylinder = s;
-	s->pos = pos;
-	s->r = d / 2.f;
-	s->axis = axis;
-	s->h = h / 2.0f;
-	s->r_square = s->r * s->r;
-	scale(&axis, s->h);
-	top_center = pos;
-	bottom_center = pos;
-	add(&top_center, axis);
-	subtract(&bottom_center, axis);
-	scale(&axis, -1.f);
-	s->bottom = (t_plane){.r0 = bottom_center, .v = axis};
-	scale(&axis, -1.f);
-	s->top = (t_plane){.r0 = top_center, .v = axis};
-	shape->color = color;
-	return (shape);
-}
-// rA0 =  s x (r0 - rc) x s
-t_vec	get_rA0(t_vec s, t_vec r0, t_vec rc)
-{
-	t_vec	rA0;
+	t_vec	ra0;
 
 	subtract(&r0, rc);
-	rA0 = cross(s, r0);
-	rA0 = cross(rA0, s);
-	return (rA0);
+	ra0 = cross(s, r0);
+	ra0 = cross(ra0, s);
+	return (ra0);
+}
+
+int	is_outside_bounds(t_vec hit_point, t_cylinder cylinder)
+{
+	t_vec	center_to_hit_point;
+	float	proj;
+
+	center_to_hit_point = hit_point;
+	subtract(&center_to_hit_point, cylinder.pos);
+	proj = dot(center_to_hit_point, cylinder.axis);
+	if (proj < -cylinder.h || proj > cylinder.h)
+		return (1);
+	else
+		return (0);
 }
 
 t_hit	hit_tube(t_cylinder cylinder, t_ray ray)
 {
-	float	a;
-	float	b;
-	float	c;
 	t_hit	res;
-	t_vec	rA0;
-	t_vec	vA;
-	t_vec	center_to_hit_point;
-	float	proj;
+	t_vec	ra0;
+	t_vec	v_a;
 	t_vec	normal;
 
-	rA0 = get_rA0(cylinder.axis, ray.r0, cylinder.pos);
-	vA = cross(cylinder.axis, ray.v);
-	vA = cross(vA, cylinder.axis);
-	a = dot(vA, vA);
-	b = 2.f * dot(rA0, vA);
-	c = dot(rA0, rA0) - cylinder.r_square;
-	res.distance = solve_quadratic(a, b, c);
+	ra0 = get_ra0(cylinder.axis, ray.r0, cylinder.pos);
+	v_a = cross(cylinder.axis, ray.v);
+	v_a = cross(v_a, cylinder.axis);
+	res.distance = get_distance(v_a, ra0, cylinder);
 	res.hit_point = ray_in_t(ray, res.distance);
-	center_to_hit_point = res.hit_point;
-	subtract(&center_to_hit_point, cylinder.pos);
-	proj = dot(center_to_hit_point, cylinder.axis);
-	if (proj < -cylinder.h || proj > cylinder.h)
+	if (is_outside_bounds(res.hit_point, cylinder))
 		res.distance = NAN;
-	else if (!isnan(res.distance))
+	if (!isnan(res.distance))
 	{
-		normal = vA;
+		normal = v_a;
 		scale(&normal, res.distance);
-		add(&normal, rA0);
+		add(&normal, ra0);
 		normalize(&normal);
 		scale(&ray.v, -1.f);
 		res.lambert = dot(ray.v, normal);
@@ -112,5 +88,5 @@ t_hit	hit_cylinder(t_cylinder cylinder, t_ray ray)
 	index = minimum_distance(hit, 3);
 	if (index != -1)
 		return (hit[index]);
-	return (hit[0]);
+	return (hit[1]);
 }

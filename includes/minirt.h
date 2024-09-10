@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 19:23:13 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:48:43 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ void				print_state(void);
 // shapes
 t_shape				*put_sphere(t_point pos, t_color color, float r);
 t_hit				hit_sphere(t_sphere sphere, t_ray ray);
-t_shape				*put_cylinder(t_point pos, t_vec axis, t_color color,
-						float r, float h);
+t_shape				*put_cylinder(t_cylinder *s, t_color color);
+t_cylinder			*get_cylinder(t_point pos, t_vec axis, float d, float h);
 float				get_distance(t_vec v_a, t_vec ra0, t_cylinder cylinder);
 t_hit				hit_cylinder(t_cylinder cylinder, t_ray ray);
 t_hit				hit_plane(t_plane plane, t_ray ray);

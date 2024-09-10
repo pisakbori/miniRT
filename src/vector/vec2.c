@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:56:33 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 19:18:13 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:22:27 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ t_vec	cross(t_vec u, t_vec v)
 	res.y = u.z * v.x - u.x * v.z;
 	res.z = u.x * v.y - u.y * v.x;
 	return (res);
-}
-
-void	normalize(t_vec *v)
-{
-	divide_by_scalar(v, get_length(*v));
 }
 
 float	d_sq(t_point a, t_point b)

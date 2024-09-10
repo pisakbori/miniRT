@@ -22,6 +22,7 @@ FILES			=	test/3planes\
 					shapes/cylinder2\
 					shapes/utils\
 					trace\
+					ray_utils\
 					light_source\
 					main\
 					vector/vec1\

@@ -6,22 +6,19 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 19:23:27 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:49:18 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_shape	*put_cylinder(t_point pos, t_vec axis, t_color color, float d, float h)
+t_cylinder	*get_cylinder(t_point pos, t_vec axis, float d, float h)
 {
-	t_cylinder	*s;
-	t_shape		*shape;
 	t_vec		top_center;
 	t_vec		bottom_center;
+	t_cylinder	*s;
 
-	shape = ft_calloc(1, sizeof(t_shape));
 	s = ft_calloc(1, sizeof(t_cylinder));
-	shape->cylinder = s;
 	s->pos = pos;
 	s->r = d / 2.f;
 	s->axis = axis;
@@ -36,6 +33,15 @@ t_shape	*put_cylinder(t_point pos, t_vec axis, t_color color, float d, float h)
 	s->bottom = (t_plane){.r0 = bottom_center, .v = axis};
 	scale(&axis, -1.f);
 	s->top = (t_plane){.r0 = top_center, .v = axis};
+	return (s);
+}
+
+t_shape	*put_cylinder(t_cylinder *s, t_color color)
+{
+	t_shape	*shape;
+
+	shape = ft_calloc(1, sizeof(t_shape));
+	shape->cylinder = s;
 	shape->color = color;
 	return (shape);
 }

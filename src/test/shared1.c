@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:02:54 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 14:58:50 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:25:16 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	put_camera_diagonal(void)
 	set_camera_vectors();
 }
 
-void	put_red_sphere_x(int i)
+void	put_red_sphere_x(void)
 {
 	t_color	color;
 	t_point	sphere_pos;
@@ -53,10 +53,10 @@ void	put_red_sphere_x(int i)
 	color = (t_color){.r = 255, .g = 0, .b = 0, .brightness = 1};
 	sphere_pos = (t_point){.x = 2, .y = 0, .z = 0};
 	s = put_sphere(sphere_pos, color, 1.f);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }
 
-void	put_blue_sphere_y(int i)
+void	put_blue_sphere_y(void)
 {
 	t_color	color;
 	t_point	sphere_pos;
@@ -65,10 +65,10 @@ void	put_blue_sphere_y(int i)
 	color = (t_color){.r = 0, .g = 0, .b = 255, .brightness = 1};
 	sphere_pos = (t_point){.x = 0, .y = 2, .z = 0};
 	s = put_sphere(sphere_pos, color, 1.f);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }
 
-void	put_yz_plane(int i)
+void	put_yz_plane(void)
 {
 	t_point	plane_pos;
 	t_vec	normal;
@@ -80,5 +80,5 @@ void	put_yz_plane(int i)
 	normalize(&normal);
 	grey = (t_color){.r = 250, .g = 250, .b = 250, .brightness = 1};
 	s = put_plane(plane_pos, normal, grey);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }

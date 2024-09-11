@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:57:12 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 13:20:42 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:40:45 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ t_ray	create_camera_ray(int i, int j)
 	return (r);
 }
 
+int	is_upward(t_vec v)
+{
+	if (v.x == 0 && v.y == 0 && v.z == 1)
+		return (1);
+	else
+		return (0);
+}
+
 void	set_camera_vectors(void)
 {
 	t_vec	temp;
@@ -47,12 +55,35 @@ void	set_camera_vectors(void)
 	state()->cam_z = state()->cam.orientation;
 	up = (t_vec){.x = 0.f, .y = 0.f, .z = 1.f};
 	temp = cross(state()->cam.orientation, up);
-	normalize(&temp);
-	scale(&temp, tanf(state()->cam.fov / 2.f));
-	state()->cam_x = temp;
-	temp = cross(state()->cam_z, state()->cam_x);
-	normalize(&temp);
-	ratio = (float)(state()->dim.w) / (float)(state()->dim.h);
-	scale(&temp, get_length(state()->cam_x) / ratio);
-	state()->cam_y = temp;
+	if (get_length(temp) > 0.f)
+	{
+		normalize(&temp);
+		scale(&temp, tanf(state()->cam.fov / 2.f));
+		state()->cam_x = temp;
+		temp = cross(state()->cam_z, state()->cam_x);
+		normalize(&temp);
+		ratio = (float)(state()->dim.w) / (float)(state()->dim.h);
+		scale(&temp, get_length(state()->cam_x) / ratio);
+		state()->cam_y = temp;
+	}
+	else if (state()->cam.orientation.z > 0)
+	{
+		temp = (t_vec){.x = 1, .y = 0, .z = 0};
+		scale(&temp, tanf(state()->cam.fov / 2.f));
+		state()->cam_x = temp;
+		temp = (t_vec){.x = 0, .y = 1, .z = 0};
+		ratio = (float)(state()->dim.w) / (float)(state()->dim.h);
+		scale(&temp, get_length(state()->cam_x) / ratio);
+		state()->cam_y = temp;
+	}
+	else
+	{
+		temp = (t_vec){.x = -1, .y = 0, .z = 0};
+		scale(&temp, tanf(state()->cam.fov / 2.f));
+		state()->cam_x = temp;
+		temp = (t_vec){.x = 0, .y = -1, .z = 0};
+		ratio = (float)(state()->dim.w) / (float)(state()->dim.h);
+		scale(&temp, get_length(state()->cam_x) / ratio);
+		state()->cam_y = temp;
+	}
 }

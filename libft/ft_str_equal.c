@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_str_equal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 13:08:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/05/31 20:56:47 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/09/11 17:56:00 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/09/11 17:56:27 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_str_equal(char *str1, char *str2)
 {
-	char	*res;
-	size_t	i;
-	size_t	total_size;
+	int	len1;
+	int	len2;
 
-	i = 0;
-	total_size = count * size;
-	res = malloc(total_size);
-	if (!res)
-		return (NULL);
-	while (i < total_size)
-	{
-		res[i] = 0;
-		i++;
-	}
-	return (res);
+	if (!str1 && !str2)
+		return (1);
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
+	if (len1 != len2)
+		return (0);
+	return (!ft_strncmp(str1, str2, len1));
 }

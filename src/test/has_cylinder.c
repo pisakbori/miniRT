@@ -6,13 +6,13 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:11:45 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 16:07:54 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:47:20 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_cyliner1(int i, t_color color)
+void	put_cyliner1(t_color color)
 {
 	t_point		cylinder_pos;
 	t_vec		cylinder_axis;
@@ -26,10 +26,10 @@ void	put_cyliner1(int i, t_color color)
 	normalize(&cylinder_axis);
 	c = get_cylinder(cylinder_pos, cylinder_axis, 2.f, h);
 	s = put_cylinder(c, color);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }
 
-void	put_cyliner2(int i, t_color color)
+void	put_cyliner2(t_color color)
 {
 	t_point		cylinder_pos;
 	t_vec		cylinder_axis;
@@ -43,10 +43,10 @@ void	put_cyliner2(int i, t_color color)
 	normalize(&cylinder_axis);
 	c = get_cylinder(cylinder_pos, cylinder_axis, 1.f, h);
 	s = put_cylinder(c, color);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }
 
-void	put_red_sphere(int i)
+void	put_red_sphere(void)
 {
 	t_color	color;
 	t_point	sphere_pos;
@@ -55,7 +55,7 @@ void	put_red_sphere(int i)
 	color = (t_color){.r = 255, .g = 0, .b = 0, .brightness = 1};
 	sphere_pos = (t_point){.x = 2, .y = -1, .z = 0};
 	s = put_sphere(sphere_pos, color, 1.f);
-	state()->shapes[i] = s;
+	put_shape_node(s);
 }
 
 // put_yz_plane(3);
@@ -66,15 +66,12 @@ void	put_test2_view(void)
 
 	teal = (t_color){.r = 0., .g = 255, .b = 255, .brightness = 1};
 	magenta = (t_color){.r = 255, .g = 25, .b = 255, .brightness = 1};
-	state()->shapes = ft_calloc(state()->n_shapes, sizeof(t_shape *));
 	put_ambient();
 	put_camera_diagonal();
-	put_light_above(0);
-	put_light_x(1);
-	state()->n_shapes = 4;
-	state()->n_lights = 2;
-	put_bottom_plane(0);
-	put_cyliner1(1, teal);
-	put_red_sphere(2);
-	put_cyliner2(3, magenta);
+	put_light_above();
+	put_light_x();
+	put_bottom_plane();
+	put_cyliner1(teal);
+	put_red_sphere();
+	put_cyliner2(magenta);
 }

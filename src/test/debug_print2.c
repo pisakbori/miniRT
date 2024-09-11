@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_shapes.c                                     :+:      :+:    :+:   */
+/*   debug_print2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:16:41 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 14:17:51 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:38:21 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,25 @@ void	print_cy(t_cylinder cy, t_color c)
 void	print_state(void)
 {
 	t_state	s;
-	int		i;
+	t_shape	*shape;
 
-	i = -1;
 	s = *state();
 	print_ambient(s.ambient[0]);
 	print_camera(s.cam);
-	while (++i < 2)
-		print_light(s.lights[i]);
-	i = -1;
-	while (++i < s.n_shapes)
+	while (s.lights)
 	{
-		if (s.shapes[i]->sphere)
-			print_sphere(*s.shapes[i]->sphere, s.shapes[i]->color);
-		if (s.shapes[i]->plane)
-			print_plane(*s.shapes[i]->plane, s.shapes[i]->color);
-		if (s.shapes[i]->cylinder)
-			print_cy(*s.shapes[i]->cylinder, s.shapes[i]->color);
+		print_light(*((t_light *)s.lights->content));
+		s.lights = s.lights->next;
+	}
+	while (s.shapes)
+	{
+		shape = (t_shape *)s.shapes->content;
+		if (shape->sphere)
+			print_sphere(*shape->sphere, shape->color);
+		if (shape->plane)
+			print_plane(*shape->plane, shape->color);
+		if (shape->cylinder)
+			print_cy(*shape->cylinder, shape->color);
+		s.shapes = s.shapes->next;
 	}
 }

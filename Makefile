@@ -13,7 +13,7 @@ FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
-FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state
+FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS)
 FILES			=	test/3planes\
 					test/has_cylinder\
 					test/shared1\
@@ -34,7 +34,9 @@ FILES			=	test/3planes\
 					main\
 					vector/vec1\
 					vector/vec2\
-					colors
+					colors\
+					parse/parse\
+					parse/parse2
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT
@@ -54,6 +56,7 @@ $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)test
 	mkdir -p $(OBJ_PATH)shapes
 	mkdir -p $(OBJ_PATH)vector
+	mkdir -p $(OBJ_PATH)parse
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS)  -O3 -c $< -o $@

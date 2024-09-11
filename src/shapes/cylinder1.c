@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:58:50 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 14:14:48 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:10 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,6 @@ t_hit	hit_tube(t_cylinder cylinder, t_ray ray)
 		normalize(&res.normal);
 		res.surface_to_light = ray.v;
 		scale(&res.surface_to_light, -1.f);
-		// res.diffuse = dot(ray.v, normal);
-		// if (res.diffuse < 0)
-		// 	res.diffuse = 0;
-		// res.reflected = res.normal;
-		// scale(&res.normal, 2.f * dot(ray.v, res.normal));
-		// subtract(&res.normal, ray.v);
 	}
 	return (res);
 }
@@ -75,8 +69,6 @@ t_hit	hit_face(t_cylinder cylinder, t_ray ray, t_plane face)
 	hit = hit_plane(face, ray);
 	if (d_sq(hit.hit_point, face.r0) > cylinder.r_square)
 		hit.t = NAN;
-	// if (isnan(hit.t))
-	// 	hit.diffuse = 0;
 	return (hit);
 }
 

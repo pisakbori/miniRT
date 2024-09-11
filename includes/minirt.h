@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 13:48:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:56:24 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "mlx_utils.h"
 # include "vec.h"
 # include <math.h>
+
+# define K_SPECULAR 0.5f
+# define K_DIFFUSE 1.f
 
 typedef t_vec		t_point;
 
@@ -97,8 +100,9 @@ typedef struct s_ray
 
 typedef struct s_hit
 {
-	float			lambert;
-	float			distance;
+	t_vec			normal;
+	t_vec			surface_to_light;
+	float			t;
 	t_vec			hit_point;
 }					t_hit;
 
@@ -113,6 +117,7 @@ typedef struct s_state
 	t_light			lights[10];
 	t_ambient_light	ambient[10];
 	int				n_shapes;
+	int				n_lights;
 }					t_state;
 
 // colors
@@ -137,7 +142,7 @@ t_shape				*put_sphere(t_point pos, t_color color, float r);
 t_hit				hit_sphere(t_sphere sphere, t_ray ray);
 t_shape				*put_cylinder(t_cylinder *s, t_color color);
 t_cylinder			*get_cylinder(t_point pos, t_vec axis, float d, float h);
-float				get_distance(t_vec v_a, t_vec ra0, t_cylinder cylinder);
+float				get_t(t_vec v_a, t_vec ra0, t_cylinder cylinder);
 t_hit				hit_cylinder(t_cylinder cylinder, t_ray ray);
 t_hit				hit_plane(t_plane plane, t_ray ray);
 t_shape				*put_plane(t_point pos, t_vec normal, t_color color);
@@ -148,9 +153,10 @@ void				set_camera_vectors(void);
 
 // tracing
 t_hit				ray_hit(t_shape *s, t_ray ray);
-int					minimum_distance(t_hit *distances, int n);
+int					index_of_closest(t_hit *ts, int n);
 void				ray_color(t_ray *ray);
 t_vec				ray_in_t(t_ray r, float t);
+float				get_illumination(t_vec from_camera, t_hit hit);
 
 // test views
 void				put_test1_view(void);

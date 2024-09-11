@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 13:49:18 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:12:43 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_shape	*put_cylinder(t_cylinder *s, t_color color)
 	return (shape);
 }
 
-float	get_distance(t_vec v_a, t_vec ra0, t_cylinder cylinder)
+float	get_t(t_vec v_a, t_vec ra0, t_cylinder cylinder)
 {
 	float	a;
 	float	b;

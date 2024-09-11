@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:58:50 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 19:22:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:14:48 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,28 @@ t_hit	hit_tube(t_cylinder cylinder, t_ray ray)
 	t_hit	res;
 	t_vec	ra0;
 	t_vec	v_a;
-	t_vec	normal;
 
 	ra0 = get_ra0(cylinder.axis, ray.r0, cylinder.pos);
 	v_a = cross(cylinder.axis, ray.v);
 	v_a = cross(v_a, cylinder.axis);
-	res.distance = get_distance(v_a, ra0, cylinder);
-	res.hit_point = ray_in_t(ray, res.distance);
+	res.t = get_t(v_a, ra0, cylinder);
+	res.hit_point = ray_in_t(ray, res.t);
 	if (is_outside_bounds(res.hit_point, cylinder))
-		res.distance = NAN;
-	if (!isnan(res.distance))
+		res.t = NAN;
+	if (!isnan(res.t))
 	{
-		normal = v_a;
-		scale(&normal, res.distance);
-		add(&normal, ra0);
-		normalize(&normal);
-		scale(&ray.v, -1.f);
-		res.lambert = dot(ray.v, normal);
-		if (res.lambert < 0)
-			res.lambert = 0;
+		res.normal = v_a;
+		scale(&res.normal, res.t);
+		add(&res.normal, ra0);
+		normalize(&res.normal);
+		res.surface_to_light = ray.v;
+		scale(&res.surface_to_light, -1.f);
+		// res.diffuse = dot(ray.v, normal);
+		// if (res.diffuse < 0)
+		// 	res.diffuse = 0;
+		// res.reflected = res.normal;
+		// scale(&res.normal, 2.f * dot(ray.v, res.normal));
+		// subtract(&res.normal, ray.v);
 	}
 	return (res);
 }
@@ -71,9 +74,9 @@ t_hit	hit_face(t_cylinder cylinder, t_ray ray, t_plane face)
 
 	hit = hit_plane(face, ray);
 	if (d_sq(hit.hit_point, face.r0) > cylinder.r_square)
-		hit.distance = NAN;
-	if (isnan(hit.distance))
-		hit.lambert = 0;
+		hit.t = NAN;
+	// if (isnan(hit.t))
+	// 	hit.diffuse = 0;
 	return (hit);
 }
 
@@ -85,7 +88,7 @@ t_hit	hit_cylinder(t_cylinder cylinder, t_ray ray)
 	hit[0] = hit_tube(cylinder, ray);
 	hit[1] = hit_face(cylinder, ray, cylinder.top);
 	hit[2] = hit_face(cylinder, ray, cylinder.bottom);
-	index = minimum_distance(hit, 3);
+	index = index_of_closest(hit, 3);
 	if (index != -1)
 		return (hit[index]);
 	return (hit[1]);

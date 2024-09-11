@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/04 12:05:03 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:59:17 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ float	solve_quadratic(float a, float b, float c)
 	float	delta;
 
 	delta = b * b - 4.f * a * c;
-	if (delta < 0)
+	if (delta < 0.0001f && delta > -0.0001)
+		delta = 0.0f;
+	if (delta < 0.0f)
 		return (NAN);
 	x1 = (-b + sqrtf(delta)) / (2.f * a);
 	x2 = (-b - sqrtf(delta)) / (2.f * a);

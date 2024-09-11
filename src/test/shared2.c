@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:13:37 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 14:15:57 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:52:45 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	put_light_above(int i)
 
 	light.pos = (t_point){.x = 7, .y = 0, .z = 8};
 	light.color = (t_color){.r = 255, .g = 255, .b = 255};
-	light.color.brightness = 0.2f;
+	light.color.brightness = 0.5f;
 	state()->lights[i] = light;
 }
 

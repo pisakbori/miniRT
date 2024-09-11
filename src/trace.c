@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 11:20:28 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:56:35 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,70 +22,51 @@ t_hit	ray_hit(t_shape *s, t_ray ray)
 		return (hit_plane(*s->plane, ray));
 	else if (s->cylinder)
 		return (hit_cylinder(*s->cylinder, ray));
-	res.distance = NAN;
+	res.t = NAN;
 	return (res);
 }
 
-// -1 if nothing was hit
-int	minimum_distance(t_hit *arr, int n)
+int	is_shadow(t_vec light_pos, t_ray ray, t_hit this_hit)
 {
-	float	min_value;
-	int		index;
+	t_hit	other_hit;
+	float	other_t;
+	float	this_t;
 	int		i;
 
-	min_value = INFINITY;
-	index = -1;
-	i = -1;
-	while (++i < n)
-	{
-		if (!isnan(arr[i].distance) && arr[i].distance < min_value)
-		{
-			index = i;
-			min_value = arr[i].distance;
-		}
-	}
-	return (index);
-}
-
-float	reflected_light(t_vec light_pos, t_ray ray, float distance, int i)
-{
-	t_hit	this_hit;
-	t_hit	other_hit;
-	t_ray	ray2;
-	float	hit_other_distance;
-	float	hit_this_distance;
-
-	ray2 = light_to_shape(distance, ray, light_pos);
-	this_hit = ray_hit(state()->shapes[i], ray2);
-	this_hit.hit_point = ray_in_t(ray, distance);
 	i = -1;
 	while (++i < state()->n_shapes)
 	{
-		other_hit = ray_hit(state()->shapes[i], ray2);
-		if (!isnan(other_hit.distance))
+		other_hit = ray_hit(state()->shapes[i], ray);
+		if (!isnan(other_hit.t))
 		{
-			hit_other_distance = d_sq(light_pos, other_hit.hit_point);
-			hit_this_distance = d_sq(light_pos, this_hit.hit_point);
-			if (hit_other_distance + 0.02 < hit_this_distance)
-				return (0.f);
+			other_t = d_sq(light_pos, other_hit.hit_point);
+			this_t = d_sq(light_pos, this_hit.hit_point);
+			if (other_t + 0.015f < this_t)
+				return (1);
 		}
 	}
-	return (this_hit.lambert);
+	return (0);
 }
 
-t_color	reflected_by_shape(t_light light, t_ray ray, float distance, int i)
+t_color	color_from_shape(t_light light, t_ray camera_ray, float t, int i)
 {
-	float	c;
 	t_color	shape_color;
+	t_ray	ray_light_to_shape;
+	t_hit	this_hit;
 
+	ray_light_to_shape = light_to_shape(t, camera_ray, light.pos);
+	this_hit = ray_hit(state()->shapes[i], ray_light_to_shape);
+	this_hit.hit_point = ray_in_t(camera_ray, t);
 	shape_color = state()->shapes[i]->color;
 	multiply_color(&light.color, shape_color);
-	c = reflected_light(light.pos, ray, distance, i);
-	light.color.brightness *= c;
+	if (is_shadow(light.pos, ray_light_to_shape, this_hit))
+		light.color.brightness = 0.f;
+	else
+		light.color.brightness *= get_illumination(camera_ray.v, this_hit);
 	return (light.color);
 }
 
-void	ray_color(t_ray *ray)
+void	ray_color(t_ray *camera_ray)
 {
 	t_hit	*hits;
 	int		i;
@@ -97,15 +78,15 @@ void	ray_color(t_ray *ray)
 	i = -1;
 	hits = ft_calloc(state()->n_shapes, sizeof(t_hit));
 	while (++i < state()->n_shapes)
-		hits[i] = ray_hit(state()->shapes[i], *ray);
-	i = minimum_distance(hits, state()->n_shapes);
-	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0};
+		hits[i] = ray_hit(state()->shapes[i], *camera_ray);
+	i = index_of_closest(hits, state()->n_shapes);
+	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0.f};
 	sum = sum_color(sum, state()->ambient[0].color);
-	while (++j < 2 && i != -1)
+	while (++j < state()->n_lights && i != -1)
 	{
-		c = reflected_by_shape(state()->lights[j], *ray, hits[i].distance, i);
+		c = color_from_shape(state()->lights[j], *camera_ray, hits[i].t, i);
 		sum = sum_color(sum, c);
 	}
-	ray->color = sum;
+	camera_ray->color = sum;
 	free(hits);
 }

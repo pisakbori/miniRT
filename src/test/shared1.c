@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:02:54 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/09 14:14:04 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:58:50 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	put_camera_above(void)
 	t_point	vp;
 	t_vec	orientation;
 
-	orientation = (t_vec){.x = -0.2, .y = 0, .z = -0.8f};
+	orientation = (t_vec){.x = -0.2f, .y = 0.f, .z = -0.8f};
+	normalize(&orientation);
 	vp = (t_point){.x = 3, .y = 0, .z = 8};
 	state()->cam.fov_deg = 100;
 	state()->cam.fov = (float)state()->cam.fov_deg * (M_PI / 180.0f);
@@ -32,7 +33,8 @@ void	put_camera_diagonal(void)
 	t_point	vp;
 	t_vec	orientation;
 
-	orientation = (t_vec){.x = -1, .y = -1, .z = -1};
+	orientation = (t_vec){.x = -1.f, .y = -1.f, .z = -1.f};
+	normalize(&orientation);
 	vp = (t_point){.x = 4, .y = 2, .z = 4};
 	state()->cam.fov_deg = 80;
 	state()->cam.fov = (float)state()->cam.fov_deg * (M_PI / 180.0f);

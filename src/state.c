@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:47:59 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 14:20:59 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:55:33 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_state(void)
 
 	state = ft_calloc(1, sizeof(t_state));
 	normalize(&state->cam.orientation);
-	state->dim.w = 800;
+	state->dim.w = 1200;
 	aspect_ratio = 16.f / 10.f;
 	state->dim.h = state->dim.w / aspect_ratio;
 	if (state->dim.h < 1)

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:11:45 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/10 13:48:16 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:55:58 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	put_cyliner2(int i, t_color color)
 	state()->shapes[i] = s;
 }
 
-void	put_little_sphere_x(int i)
+void	put_red_sphere(int i)
 {
 	t_color	color;
 	t_point	sphere_pos;
@@ -54,26 +54,27 @@ void	put_little_sphere_x(int i)
 
 	color = (t_color){.r = 255, .g = 0, .b = 0, .brightness = 1};
 	sphere_pos = (t_point){.x = 2, .y = -1, .z = 0};
-	s = put_sphere(sphere_pos, color, 0.5f);
+	s = put_sphere(sphere_pos, color, 1.f);
 	state()->shapes[i] = s;
 }
 
 void	put_test2_view(void)
 {
 	t_color	teal;
-	t_color	magenta;
 
+	// t_color	magenta;
 	teal = (t_color){.r = 0., .g = 255, .b = 255, .brightness = 1};
-	magenta = (t_color){.r = 255, .g = 25, .b = 255, .brightness = 1};
-	state()->n_shapes = 5;
+	// magenta = (t_color){.r = 255, .g = 25, .b = 255, .brightness = 1};
 	state()->shapes = ft_calloc(state()->n_shapes, sizeof(t_shape *));
-	put_ambient();
+	// put_ambient();
 	put_camera_diagonal();
 	put_light_above(0);
 	put_light_x(1);
+	state()->n_shapes = 4;
+	state()->n_lights = 2;
 	put_bottom_plane(0);
-	put_little_sphere_x(3);
 	put_cyliner1(1, teal);
-	put_cyliner2(2, magenta);
-	put_yz_plane(4);
+	put_red_sphere(2);
+	// put_cyliner2(2, magenta);
+	put_yz_plane(3);
 }

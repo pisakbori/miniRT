@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:11:45 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 15:55:58 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:07:54 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ void	put_red_sphere(int i)
 	state()->shapes[i] = s;
 }
 
+// put_yz_plane(3);
 void	put_test2_view(void)
 {
 	t_color	teal;
+	t_color	magenta;
 
-	// t_color	magenta;
 	teal = (t_color){.r = 0., .g = 255, .b = 255, .brightness = 1};
-	// magenta = (t_color){.r = 255, .g = 25, .b = 255, .brightness = 1};
+	magenta = (t_color){.r = 255, .g = 25, .b = 255, .brightness = 1};
 	state()->shapes = ft_calloc(state()->n_shapes, sizeof(t_shape *));
-	// put_ambient();
+	put_ambient();
 	put_camera_diagonal();
 	put_light_above(0);
 	put_light_x(1);
@@ -75,6 +76,5 @@ void	put_test2_view(void)
 	put_bottom_plane(0);
 	put_cyliner1(1, teal);
 	put_red_sphere(2);
-	// put_cyliner2(2, magenta);
-	put_yz_plane(3);
+	put_cyliner2(3, magenta);
 }

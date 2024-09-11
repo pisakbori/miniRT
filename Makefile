@@ -27,7 +27,9 @@ FILES			=	test/3planes\
 					main\
 					vector/vec1\
 					vector/vec2\
-					colors
+					colors\
+					parse/parse\
+					parse/parse2
 MINILIBX		= mlx/libmlx.a
 MINILIBX_LINUX	= mlx_linux/libmlx.a
 LIBFT			= libft/libft.a
@@ -50,12 +52,13 @@ $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)test
 	mkdir -p $(OBJ_PATH)shapes
 	mkdir -p $(OBJ_PATH)vector
+	mkdir -p $(OBJ_PATH)parse
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS)  -O3 -c $< -o $@
 
 linux: $(OBJS)  $(MINILIBX_LINUX) $(LIBFT) 
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME) && ./miniRT
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME) && ./miniRT ./images/basic_cy.rt
 
 $(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(MINILIBX) $(LIBFT)

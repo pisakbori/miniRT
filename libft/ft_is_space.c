@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 13:08:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/05/31 20:56:47 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/07/24 14:01:14 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/07/24 14:02:11 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_calloc(size_t count, size_t size)
+int	ft_is_space(char c)
 {
-	char	*res;
-	size_t	i;
-	size_t	total_size;
+	char	*spaces;
 
-	i = 0;
-	total_size = count * size;
-	res = malloc(total_size);
-	if (!res)
-		return (NULL);
-	while (i < total_size)
+	spaces = "\t\n\v\f\r ";
+	while (*spaces)
 	{
-		res[i] = 0;
-		i++;
+		if (*spaces == c)
+			return (1);
+		spaces++;
 	}
-	return (res);
+	return (0);
 }

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   free_split_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 13:08:16 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/05/31 20:56:47 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/09/11 18:01:02 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/09/11 18:01:23 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	free_split_arr(char **res)
 {
-	char	*res;
-	size_t	i;
-	size_t	total_size;
+	int	i;
 
-	i = 0;
-	total_size = count * size;
-	res = malloc(total_size);
 	if (!res)
-		return (NULL);
-	while (i < total_size)
+		return ;
+	i = -1;
+	while (res[++i])
 	{
-		res[i] = 0;
-		i++;
+		free(res[i]);
+		res[i] = NULL;
 	}
-	return (res);
+	free(res);
+	res = NULL;
 }

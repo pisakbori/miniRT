@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 13:16:09 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:34:19 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ int	main(int argc, char *argv[])
 	t_data	img;
 	t_vars	v;
 
-	(void)argc;
-	(void)argv;
 	init_state();
-	put_test2_view();
+	parse_input(argc, argv);
 	print_state();
 	v.mlx = mlx_init();
 	v.window = mlx_new_window(v.mlx, state()->dim.w, state()->dim.h, "miniRT");

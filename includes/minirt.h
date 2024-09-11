@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 15:56:24 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:25:50 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx_utils.h"
 # include "vec.h"
 # include <math.h>
+# include <stdio.h>
 
 # define K_SPECULAR 0.5f
 # define K_DIFFUSE 1.f
@@ -113,12 +114,16 @@ typedef struct s_state
 	t_vec			cam_x;
 	t_vec			cam_y;
 	t_vec			cam_z;
-	t_shape			**shapes;
-	t_light			lights[10];
+	t_list			*shapes;
+	t_list			*lights;
 	t_ambient_light	ambient[10];
-	int				n_shapes;
-	int				n_lights;
 }					t_state;
+
+// parse
+void				parse_input(int argc, char **argv);
+void				parse_input_line(char *line);
+void				put_shape_node(t_shape *shape);
+void				put_light_node(t_light *light);
 
 // colors
 int					rgb_to_int(t_color c);
@@ -152,7 +157,7 @@ t_ray				create_camera_ray(int i, int j);
 void				set_camera_vectors(void);
 
 // tracing
-t_hit				ray_hit(t_shape *s, t_ray ray);
+t_hit				ray_hit(t_shape s, t_ray ray);
 int					index_of_closest(t_hit *ts, int n);
 void				ray_color(t_ray *ray);
 t_vec				ray_in_t(t_ray r, float t);
@@ -162,14 +167,15 @@ float				get_illumination(t_vec from_camera, t_hit hit);
 void				put_test1_view(void);
 void				put_test2_view(void);
 void				put_camera_above(void);
-void				put_light_above(int i);
+void				put_light_above(void);
 void				put_camera_diagonal(void);
-void				put_red_sphere_x(int i);
-void				put_blue_sphere_y(int i);
-void				put_yz_plane(int i);
-void				put_bottom_plane(int i);
-void				put_light_x(int i);
+void				put_red_sphere_x(void);
+void				put_blue_sphere_y(void);
+void				put_yz_plane(void);
+void				put_bottom_plane(void);
+void				put_light_x(void);
 void				put_ambient(void);
+void				put_shape_node(t_shape *shape);
 
 // light sources
 t_ray				light_to_shape(float time, t_ray camera_ray,

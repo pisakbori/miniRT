@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 18:34:19 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:42:44 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	paint_pixels(t_vars *v)
 		{
 			ray = create_camera_ray(i, j);
 			ray_color(&ray);
+			// gamma_correct(&ray.color);
 			img_mlx_pixel_put(*v, i, j, rgb_to_int(ray.color));
 		}
 	}

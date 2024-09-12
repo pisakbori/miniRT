@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 17:50:17 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:46:47 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_shadow(t_vec light_pos, t_ray ray, t_hit this_hit)
 		{
 			other_t = d_sq(light_pos, other_hit.hit_point);
 			this_t = d_sq(light_pos, this_hit.hit_point);
-			if (other_t + 0.015f < this_t)
+			if (other_t + (other_t / 20000.f) < this_t)
 				return (1);
 		}
 		shape_lst = shape_lst->next;
@@ -64,7 +64,8 @@ t_color	color_from_shape(t_light light, t_ray camera_ray, float t,
 	if (is_shadow(light.pos, ray_light_to_shape, this_hit))
 		light.color.brightness = 0.f;
 	else
-		light.color.brightness *= get_illumination(camera_ray.v, this_hit);
+		light.color.brightness *= get_illumination(camera_ray.v, this_hit)
+			/ (this_hit.t * this_hit.t / 100.f);
 	return (light.color);
 }
 
@@ -95,7 +96,11 @@ void	ray_color(t_ray *camera_ray)
 		shape_lst = shape_lst->next;
 	}
 	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0.f};
-	sum = sum_color(sum, state()->ambient[0].color);
+	if (shape_pt)
+	{
+		sum = sum_color(sum, state()->ambient[0].color);
+		multiply_color(&sum, shape_pt->color);
+	}
 	light_lst = state()->lights;
 	while (light_lst && shape_pt)
 	{

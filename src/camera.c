@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:57:12 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 19:40:45 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:06:28 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	set_camera_vectors(void)
 		temp = (t_vec){.x = -1, .y = 0, .z = 0};
 		scale(&temp, tanf(state()->cam.fov / 2.f));
 		state()->cam_x = temp;
-		temp = (t_vec){.x = 0, .y = -1, .z = 0};
+		temp = (t_vec){.x = 0, .y = 1, .z = 0};
 		ratio = (float)(state()->dim.w) / (float)(state()->dim.h);
 		scale(&temp, get_length(state()->cam_x) / ratio);
 		state()->cam_y = temp;

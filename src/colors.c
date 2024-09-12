@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 14:19:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 15:06:45 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:42:33 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,16 @@ int	rgb_to_int(t_color c)
 	final_c += c.g << 8;
 	final_c += c.b;
 	return (final_c);
+}
+
+void	gamma_correct(t_color *c)
+{
+	float	temp;
+
+	temp = powf((float)c->b / 255.f, 0.6f);
+	c->b = roundf(temp * 255.f);
+	temp = powf((float)c->r / 255.f, 0.6f);
+	c->r = roundf(temp * 255.f);
+	temp = powf((float)c->g / 255.f, 0.6f);
+	c->g = roundf(temp * 255.f);
 }

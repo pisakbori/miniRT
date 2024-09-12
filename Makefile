@@ -58,7 +58,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	$(CC) $(CFLAGS)  -O3 -c $< -o $@
 
 linux: $(OBJS)  $(MINILIBX_LINUX) $(LIBFT) 
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME) && ./miniRT ./images/basic_cy.rt
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX_LINUX) $(LIBFT)  -lXext -lX11 -lm -lz -o $(NAME) 
 
 $(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(MINILIBX) $(LIBFT)

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 18:25:50 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:34:14 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define K_SPECULAR 0.5f
+# define K_SPECULAR 1.f
 # define K_DIFFUSE 1.f
 
 typedef t_vec		t_point;
@@ -116,6 +116,7 @@ typedef struct s_state
 	t_vec			cam_z;
 	t_list			*shapes;
 	t_list			*lights;
+	float			t;
 	t_ambient_light	ambient[10];
 }					t_state;
 
@@ -130,6 +131,7 @@ int					rgb_to_int(t_color c);
 void				multiply_color(t_color *dst, t_color src);
 t_color				sum_color(t_color c1, t_color c2);
 void				scale_color(t_color *color, float s);
+void				gamma_correct(t_color *c);
 
 t_state				*state(void);
 void				init_state(void);

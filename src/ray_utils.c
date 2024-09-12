@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:20:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 16:00:04 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:33:17 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ float	get_illumination(t_vec from_camera, t_hit hit)
 	reflected = hit.normal;
 	scale(&hit.normal, 2.f * dot(hit.surface_to_light, hit.normal));
 	subtract(&hit.normal, hit.surface_to_light);
-	specular = K_SPECULAR * powf(dot(reflected, to_camera), 10.f);
+	specular = powf(dot(reflected, to_camera), 10.f);
 	return (diffuse + specular);
 }

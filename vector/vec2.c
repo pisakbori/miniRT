@@ -6,21 +6,17 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 15:56:33 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/23 16:08:31 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/29 11:06:22 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
-t_vec	*add(t_vec v1, t_vec v2)
+void	add(t_vec *v1, t_vec v2)
 {
-	t_vec	*v3;
-
-	v3 = ft_calloc(1, sizeof(t_vec));
-	v3->x = v1.x + v2.x;
-	v3->y = v1.y + v2.y;
-	v3->z = v1.z + v2.z;
-	return (v3);
+	v1->x += v2.x;
+	v1->y += v2.y;
+	v1->z += v2.z;
 }
 
 float	dot(t_vec v1, t_vec v2)
@@ -53,11 +49,14 @@ t_vec	*clone(t_vec v)
 	return (r);
 }
 
-t_vec	*unit_vec(t_vec v)
+void	assign(t_vec *dest, t_vec src)
 {
-	t_vec	*r;
+	dest->x = src.x;
+	dest->y = src.y;
+	dest->z = src.z;
+}
 
-	r = clone(v);
-	divide_by_scalar(r, get_length(v));
-	return (r);
+void	normalize(t_vec *v)
+{
+	divide_by_scalar(v, get_length(*v));
 }

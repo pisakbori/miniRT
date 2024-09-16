@@ -1,10 +1,10 @@
-CC				= cc 
-LIBNAMES		= mlx libft vector fdf_utils shapes
-CFLAGS			= -Wall -Werror -Wextra  $(patsubst %, -I./%, $(LIBNAMES)) -I.
+CC      		= cc 
+CFLAGS			= -Wall -Werror -Wextra  $(HEADERS)
+HEADERS			= -I./libft -I./vector -I./fdf_utils -I. -I./mlx
 LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
-RM				= rm -rf
+RM      		= rm -rf
 VECTOR_NAMES	= vec1 vec2
 VECTOR_UTILS	= $(patsubst %, vector/%, $(VECTOR_NAMES))
 FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
@@ -13,9 +13,7 @@ FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
 FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
-SHAPE_NAMES		= plane
-SHAPE_UTILS		= $(patsubst %, shapes/%, $(SHAPE_NAMES))
-FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) 
+FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT
@@ -24,12 +22,16 @@ OBJS			= $(patsubst %.c, %.o, $(SRC))
 
 all: $(NAME)
 
-bonus: $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -O3 -c $< -o $@
 
-$(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(MINILIBX) $(LIBFT)
+$(NAME): $(OBJS)  $(MINILIBX) $(LIBFT)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX) $(LIBFT)  -o $(NAME)
 
 minilibx: $(MINILIBX)
+
+$(MINILIBX):
+	make -C mlx
 
 libft: $(LIBFT)
 
@@ -37,7 +39,7 @@ $(LIBFT):
 	make -C libft
 
 $(MINILIBX):
-	@make -C mlx
+	make -C mlx
 
 clean:
 	make clean -C mlx
@@ -52,4 +54,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean bonus re fclean
+.PHONY: all clean bonus re fclean minilibx libft

@@ -5,48 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 13:34:18 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/23 16:00:35 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/08/28 16:22:05 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/08/29 11:46:41 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
-int	main(int argc, char const *argv[])
+t_ray	*create_camera_ray(int i, int j)
 {
-	t_vec	a;
-	float	f;
+	t_ray	*r;
+	t_vec	*temp;
+	float	half_size;
+	float	x;
+	float	y;
 
-	f = 2.5;
-	(void)argc;
-	(void)argv;
-	a.x = 1.0;
-	a.y = 1.0;
-	a.z = 1.0;
-	print(a);
-	vec_times_scalar(&a, f);
-	print(a);
-	// int		border;
-	// t_data	img;
-	// t_vars	*v;
-	// if (argc != 2)
-	// {
-	// 	ft_printf("Correct usage: ./fdf <filename>");
-	// 	return (1);
-	// }
-	// v = ft_calloc(1, sizeof(t_vars));
-	// v->w_dims = (t_dim){.x = 1000, .y = 1000, .z = 30};
-	// v->c_min = rgb_to_hsv(int_to_rgb(0x4278F5));
-	// v->c_max = rgb_to_hsv(int_to_rgb(0xF542DD));
-	// border = 20;
-	// get_map(argv[1], v, border);
-	// v->mlx = mlx_init();
-	// v->window = mlx_new_window(v->mlx, v->w_dims.x, v->w_dims.y, "fdf");
-	// img.img = mlx_new_image(v->mlx, v->w_dims.x, v->w_dims.y);
-	// img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.ll, &img.endian);
-	// v->img = img;
-	// put_map_to_window(v);
-	// mlx_hook(v->window, 2, 1L << 0, handle_key_press, v);
-	// mlx_hook(v->window, ON_DESTROY, 0, close_win, v);
-	// mlx_loop(v->mlx);
+	r = ft_calloc(1, sizeof(t_ray));
+	r->r0 = state()->cam.view_point;
+	assign(&r->v, state()->cam_z);
+	temp = clone(state()->cam_x);
+	half_size = (float)state()->dim.w / 2.f;
+	x = ((float)i - half_size) / half_size;
+	scale(temp, x);
+	add(&r->v, *temp);
+	free(temp);
+	temp = clone(state()->cam_y);
+	half_size = (float)state()->dim.h / 2.f;
+	y = ((float)j - half_size) / half_size;
+	scale(temp, y);
+	add(&r->v, *temp);
+	free(temp);
+	return (r);
+}
+
+int	main(void)
+{
+	int		i;
+	int		j;
+	t_ray	*ray;
+
+	init_state();
+	print_state();
+	j = -1;
+	while (++j < state()->dim.h)
+	{
+		i = -1;
+		while (++i < state()->dim.w)
+		{
+			ray = create_camera_ray(i, j);
+			printf("i=%d , j=%d ", i, j);
+			print(ray->v);
+			free(ray);
+		}
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:27:05 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/23 16:11:34 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:58:54 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print(t_vec v)
 {
-	printf("Vector, x:%f y:%f z:%f\n", v.x, v.y, v.z);
+	printf("vector: x:%.2f y:%.2f z:%.2f\n", v.x, v.y, v.z);
 }
 
 float	get_length_squared(t_vec v)
@@ -38,7 +38,14 @@ t_vec	*new_vector(float x, float y, float z)
 	return (r);
 }
 
-void	vec_times_scalar(t_vec *v, float s)
+void	set_coordinates(t_vec *v, float x, float y, float z)
+{
+	v->x = x;
+	v->y = y;
+	v->z = z;
+}
+
+void	scale(t_vec *v, float s)
 {
 	v->x = s * v->x;
 	v->y = s * v->y;
@@ -47,5 +54,5 @@ void	vec_times_scalar(t_vec *v, float s)
 
 void	divide_by_scalar(t_vec *v, float s)
 {
-	vec_times_scalar(v, 1 / s);
+	scale(v, 1 / s);
 }

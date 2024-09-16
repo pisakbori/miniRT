@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/12 15:34:14 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:15:42 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ t_shape				*put_sphere(t_point pos, t_color color, float r);
 t_hit				hit_sphere(t_sphere sphere, t_ray ray);
 t_shape				*put_cylinder(t_cylinder *s, t_color color);
 t_cylinder			*get_cylinder(t_point pos, t_vec axis, float d, float h);
+void				translate_cylinder(t_cylinder *s, t_vec v);
 float				get_t(t_vec v_a, t_vec ra0, t_cylinder cylinder);
 t_hit				hit_cylinder(t_cylinder cylinder, t_ray ray);
 t_hit				hit_plane(t_plane plane, t_ray ray);
@@ -182,6 +183,11 @@ void				put_shape_node(t_shape *shape);
 // light sources
 t_ray				light_to_shape(float time, t_ray camera_ray,
 						t_vec light_pos);
+
+// translate,rotate
+void				translate_camera(t_vec v);
+void				translate_object(int i, t_vec v);
+void				translate_light(int i, t_vec v);
 
 // shape utils
 float				solve_quadratic(float a, float b, float c);

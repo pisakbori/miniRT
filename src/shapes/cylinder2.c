@@ -6,11 +6,18 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 12:12:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:14:05 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	translate_cylinder(t_cylinder *s, t_vec v)
+{
+	add(&s->pos, v);
+	add(&s->bottom.r0, v);
+	add(&s->top.r0, v);
+}
 
 t_cylinder	*get_cylinder(t_point pos, t_vec axis, float d, float h)
 {

@@ -36,7 +36,8 @@ FILES			=	test/3planes\
 					vector/vec2\
 					colors\
 					parse/parse\
-					parse/parse2
+					parse/parse2\
+					translate
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/12 15:42:44 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:16:36 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,23 @@ int	close_win(t_vars *vars)
 	exit(0);
 }
 
+void	do_translation_rotation(void)
+{
+	t_vec	v;
+
+	v = (t_vec){.x = 10.0f, .y = 0.0f, .z = 0.0f};
+	translate_camera(v);
+	translate_object(0, v);
+	translate_object(1, v);
+	translate_object(2, v);
+	translate_object(3, v);
+	translate_light(0, v);
+	translate_light(1, v);
+	translate_light(-88, v);
+	// 	translate(index, vector);
+	// 	rotate(index, vector);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	img;
@@ -67,6 +84,8 @@ int	main(int argc, char *argv[])
 
 	init_state();
 	parse_input(argc, argv);
+	print_state();
+	do_translation_rotation();
 	print_state();
 	v.mlx = mlx_init();
 	v.window = mlx_new_window(v.mlx, state()->dim.w, state()->dim.h, "miniRT");

@@ -34,10 +34,12 @@ FILES			=	test/3planes\
 					main\
 					vector/vec1\
 					vector/vec2\
+					vector/vec3\
 					colors\
 					parse/parse\
 					parse/parse2\
-					translate
+					translate\
+					rotate
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT

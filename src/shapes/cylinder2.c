@@ -6,17 +6,36 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:05 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:11:19 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	translate_cylinder(t_cylinder *s, t_vec v)
+void	translate_cylinder(t_cylinder *c, t_vec v)
 {
-	add(&s->pos, v);
-	add(&s->bottom.r0, v);
-	add(&s->top.r0, v);
+	add(&c->pos, v);
+	add(&c->bottom.r0, v);
+	add(&c->top.r0, v);
+}
+
+void	rotate_cylinder(t_cylinder *c, t_vec axis, int deg)
+{
+	t_vec	top_center;
+	t_vec	bottom_center;
+	t_vec	c_axis;
+
+	rotate_vec(&c->axis, axis, deg);
+	c_axis = c->axis;
+	scale(&c_axis, c->h);
+	top_center = c->pos;
+	bottom_center = c->pos;
+	add(&top_center, c_axis);
+	subtract(&bottom_center, c_axis);
+	scale(&c->axis, -1.f);
+	c->bottom = (t_plane){.r0 = bottom_center, .v = c->axis};
+	scale(&c->axis, -1.f);
+	c->top = (t_plane){.r0 = top_center, .v = c->axis};
 }
 
 t_cylinder	*get_cylinder(t_point pos, t_vec axis, float d, float h)

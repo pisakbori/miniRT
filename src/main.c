@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/16 15:16:36 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:16:26 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ void	do_translation_rotation(void)
 	t_vec	v;
 
 	v = (t_vec){.x = 10.0f, .y = 0.0f, .z = 0.0f};
-	translate_camera(v);
-	translate_object(0, v);
-	translate_object(1, v);
-	translate_object(2, v);
-	translate_object(3, v);
-	translate_light(0, v);
-	translate_light(1, v);
-	translate_light(-88, v);
+	// translate_camera(v);
+	// translate_object(0, v);
+	// translate_object(1, v);
+	// translate_object(2, v);
+	// translate_object(3, v);
+	// translate_light(0, v);
+	// translate_light(1, v);
+	// translate_light(-88, v);
 	// 	translate(index, vector);
-	// 	rotate(index, vector);
+	normalize(&v);
+	rotate_object(1, v, -45);
 }
 
 int	main(int argc, char *argv[])

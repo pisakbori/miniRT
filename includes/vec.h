@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:29:11 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/16 12:44:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:23:19 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ float			dot(t_vec v1, t_vec v2);
 t_vec			cross(t_vec u, t_vec v);
 void			normalize(t_vec *v);
 float			d_sq(t_point a, t_point b);
+void			rotate_vec(t_vec *v, t_vec axis, int deg);
 
 #endif

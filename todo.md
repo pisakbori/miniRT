@@ -7,6 +7,9 @@ check for leaks
 fix norminette
 different resolution
 quit cleanly on esc
+1 ambient only
+clean 	float			brightness; in color
+quit on esc
 
 
 Costas:

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/12 15:46:47 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:04:18 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_shadow(t_vec light_pos, t_ray ray, t_hit this_hit)
 		{
 			other_t = d_sq(light_pos, other_hit.hit_point);
 			this_t = d_sq(light_pos, this_hit.hit_point);
-			if (other_t + (other_t / 20000.f) < this_t)
+			if (other_t + 0.01f < this_t)
 				return (1);
 		}
 		shape_lst = shape_lst->next;

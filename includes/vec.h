@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:29:11 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/08/29 11:07:45 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:44:43 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,22 @@
 
 typedef struct s_vec
 {
-	float	x;
-	float	y;
-	float	z;
-}			t_vec;
+	float		x;
+	float		y;
+	float		z;
+}				t_vec;
 
-t_vec		*new_vector(float x, float y, float z);
-void		set_coordinates(t_vec *v, float x, float y, float z);
-void		print(t_vec v);
-float		get_length(t_vec v);
-float		get_length_squared(t_vec v);
-void		scale(t_vec *v1, float s);
-void		divide_by_scalar(t_vec *v, float s);
-void		add(t_vec *v1, t_vec v2);
-float		dot(t_vec v1, t_vec v2);
-t_vec		*cross(t_vec u, t_vec v);
-void		normalize(t_vec *v);
-t_vec		*clone(t_vec v);
-void		assign(t_vec *dest, t_vec src);
+typedef t_vec	t_point;
+
+float			get_length(t_vec v);
+float			get_length_squared(t_vec v);
+void			scale(t_vec *v1, float s);
+void			divide_by_scalar(t_vec *v, float s);
+void			add(t_vec *v1, t_vec v2);
+void			subtract(t_vec *v1, t_vec v2);
+float			dot(t_vec v1, t_vec v2);
+t_vec			cross(t_vec u, t_vec v);
+void			normalize(t_vec *v);
+float			d_sq(t_point a, t_point b);
 
 #endif

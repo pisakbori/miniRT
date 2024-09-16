@@ -1,5 +1,5 @@
-CC      		= cc 
-CFLAGS			= -Wall -Werror -Wextra  $(HEADERS)
+CC      		= cc
+CFLAGS			= -Wall -Werror -Wextra $(INC)
 HEADERS			= -I./libft -I./vector -I./fdf_utils -I. -I./mlx
 LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -14,19 +14,52 @@ FDF_UTILS		= $(patsubst %, fdf_utils/%, $(FDF_NAMES))
 TEST_NAMES		= test
 TEST_UTILS		= $(patsubst %, test/%, $(TEST_NAMES))
 FILES			= $(FDF_UTILS) $(VECTOR_UTILS) $(TEST_UTILS) state
+FILES			=	test/3planes\
+					test/has_cylinder\
+					test/shared1\
+					test/shared2\
+					test/debug_print1\
+					test/debug_print2\
+					state\
+					collect_garbage\
+					camera\
+					shapes/sphere\
+					shapes/plane\
+					shapes/cylinder1\
+					shapes/cylinder2\
+					shapes/utils\
+					trace\
+					ray_utils\
+					light_source\
+					main\
+					vector/vec1\
+					vector/vec2\
+					colors
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT
-SRC				= $(patsubst %, %.c, $(FILES))
-OBJS			= $(patsubst %.c, %.o, $(SRC))
+SRC_PATH		= ./src/
+SRC				= $(patsubst %, $(SRC_PATH)%.c, $(FILES))
+OBJ_PATH 		= ./obj/
+OBJS			= $(patsubst %, $(OBJ_PATH)%.o, $(FILES))
+INC				=	-I ./includes/\
+					-I ./libft/\
+					-I ./mlx/
 
-all: $(NAME)
+all: $(OBJ_PATH) $(NAME) 
 
-%.o: %.c
-	$(CC) $(CFLAGS) -O3 -c $< -o $@
+# Objects directory rule
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)test
+	mkdir -p $(OBJ_PATH)shapes
+	mkdir -p $(OBJ_PATH)vector
 
-$(NAME): $(OBJS)  $(MINILIBX) $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX) $(LIBFT)  -o $(NAME)
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS)  -O3 -c $< -o $@
+
+$(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX) $(LIBFT) -o $(NAME)
 
 minilibx: $(MINILIBX)
 
@@ -44,7 +77,7 @@ $(MINILIBX):
 clean:
 	make clean -C mlx
 	make clean -C libft
-	rm -rf $(OBJS)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	make clean -C mlx

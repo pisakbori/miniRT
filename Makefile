@@ -5,7 +5,7 @@ LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM      		= rm -rf
-WIN_WIDTH		= 500
+WIN_WIDTH		= 1024
 FILES			=	test/3planes\
 					test/has_cylinder\
 					test/shared1\

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 13:31:50 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:47:05 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_color	color_from_shape(t_light light, t_ray camera_ray, float t,
 		light.color.brightness = 0.f;
 	else
 		light.color.brightness *= get_illumination(camera_ray.v, this_hit)
-			/ (this_hit.t * this_hit.t / 100.f);
+			* 0.5f;
 	return (light.color);
 }
 
@@ -110,5 +110,4 @@ void	ray_color(t_ray *camera_ray)
 		light_lst = light_lst->next;
 	}
 	camera_ray->color = sum;
-	// free(hits);
 }

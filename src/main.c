@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 14:10:15 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:22:25 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ int	handle_key_press(int k, t_vars *vars)
 
 void	do_translation_rotation(void)
 {
-	t_vec	v;
-
-	v = (t_vec){.x = 10.0f, .y = 0.0f, .z = 0.0f};
+	// t_vec	v;
+	// v = (t_vec){.x = 10.0f, .y = 0.0f, .z = 0.0f};
 	// translate_camera(v);
 	// translate_object(0, v);
 	// translate_object(1, v);
@@ -80,8 +79,8 @@ void	do_translation_rotation(void)
 	// translate_light(1, v);
 	// translate_light(-88, v);
 	// 	translate(index, vector);
-	normalize(&v);
-	rotate_object(1, v, -45);
+	// normalize(&v);
+	// rotate_object(1, v, -45);
 }
 
 void	check_leaks(void)
@@ -89,12 +88,12 @@ void	check_leaks(void)
 	system("leaks miniRT");
 }
 
+// atexit(check_leaks);
 int	main(int argc, char *argv[])
 {
 	t_data	img;
 	t_vars	v;
 
-	atexit(check_leaks);
 	init_state();
 	parse_input(argc, argv);
 	print_state();

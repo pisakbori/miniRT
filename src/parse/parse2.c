@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 13:31:50 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:12:17 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_vec	parse_vector(char *str)
 	res.x = atof(words[0]);
 	res.y = atof(words[1]);
 	res.z = atof(words[2]);
+	free_split_arr(words);
 	return (res);
 }
 

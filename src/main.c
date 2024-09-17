@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 13:37:02 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:10:15 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	put_picture_to_window(t_vars *vars)
 
 int	close_win(t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->window);
 	collect_mlx_garbage(vars);
 	exit(0);
 }
@@ -85,11 +84,17 @@ void	do_translation_rotation(void)
 	rotate_object(1, v, -45);
 }
 
+void	check_leaks(void)
+{
+	system("leaks miniRT");
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	img;
 	t_vars	v;
 
+	atexit(check_leaks);
 	init_state();
 	parse_input(argc, argv);
 	print_state();

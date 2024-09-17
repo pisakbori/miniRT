@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:16:41 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 18:38:21 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:31:50 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	print_state(void)
 	t_shape	*shape;
 
 	s = *state();
-	print_ambient(s.ambient[0]);
+	print_ambient(s.ambient);
 	print_camera(s.cam);
 	while (s.lights)
 	{

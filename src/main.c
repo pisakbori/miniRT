@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/16 18:16:26 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:37:02 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ int	close_win(t_vars *vars)
 	exit(0);
 }
 
+int	handle_key_press(int k, t_vars *vars)
+{
+	if (k == 53)
+		close_win(vars);
+	return (0);
+}
+
 void	do_translation_rotation(void)
 {
 	t_vec	v;
@@ -95,5 +102,6 @@ int	main(int argc, char *argv[])
 	v.img = img;
 	put_picture_to_window(&v);
 	mlx_hook(v.window, ON_DESTROY, 0, close_win, &v);
+	mlx_hook(v.window, 2, 1L << 0, handle_key_press, &v);
 	mlx_loop(v.mlx);
 }

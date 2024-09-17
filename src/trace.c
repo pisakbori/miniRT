@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/16 17:04:18 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:31:50 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ray_color(t_ray *camera_ray)
 	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0.f};
 	if (shape_pt)
 	{
-		sum = sum_color(sum, state()->ambient[0].color);
+		sum = sum_color(sum, state()->ambient.color);
 		multiply_color(&sum, shape_pt->color);
 	}
 	light_lst = state()->lights;

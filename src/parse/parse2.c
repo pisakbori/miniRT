@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 18:41:22 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:31:50 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse_ambient(char **d)
 
 	c = parse_color(d[2]);
 	c.brightness = atof(d[1]);
-	state()->ambient[0].color = c;
+	state()->ambient.color = c;
 }
 
 void	parse_camera(char **d)

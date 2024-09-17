@@ -5,6 +5,7 @@ LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM      		= rm -rf
+WIN_WIDTH		= 500
 VECTOR_NAMES	= vec1 vec2
 VECTOR_UTILS	= $(patsubst %, vector/%, $(VECTOR_NAMES))
 FDF_NAMES		= map_parsing_utils utils rotate_utils shift_utils\
@@ -62,10 +63,10 @@ $(OBJ_PATH):
 	mkdir -p $(OBJ_PATH)parse
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	$(CC) $(CFLAGS)  -O3 -c $< -o $@
+	$(CC) $(CFLAGS)  -O3 -c $< -o $@ -D WIN_WIDTH=$(WIN_WIDTH)
 
 $(NAME): $(OBJS) $(MINILIBX) $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(MINILIBX) $(LIBFT) -o $(NAME) 
 
 minilibx: $(MINILIBX)
 

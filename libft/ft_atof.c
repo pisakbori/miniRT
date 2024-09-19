@@ -6,11 +6,12 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:38:42 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/19 19:36:54 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:54:23 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <math.h>
 
 // double	atof(const char *str)
 // {
@@ -44,19 +45,21 @@ double	ft_atof(const char *str)
 	char	*prt1;
 	char	*prt2;
 	int		i;
-	int		p1;
-	int		p2;
+	double		p1;
+	double		p2;
+	double		final;
 
 	int1 = 0;
 	frct2 = 0;
 	i = 0;
 	while (str[int1] != '.' && str[int1] != '\0')
 		int1++;
-	// if (str[int1] != '.')
-	// {
-	// 	printf("Error: Decimal point '.' not found in input string.\n");
-	// 	return 0.0;
-	// }
+	if (str[int1] != '.')
+	{
+		// printf("Error: Decimal point '.' not found in input string.\n");
+		printf("Epistrefei %f\n", (double)ft_atoi(str));
+		return (ft_atoi(str));
+	}
 	prt1 = (char *)malloc(sizeof(char) * int1);
 	while (i < int1)
 	{
@@ -65,15 +68,12 @@ double	ft_atof(const char *str)
 	}
 	prt1[int1] = '\0';
 	p1 = ft_atoi(prt1);
-	printf("To prwto meros %d\n", p1);
-	free(prt1);
+	printf("To prwto meros p1 %f\n", p1);
+	// free(prt1);
 	if (str[int1] == '.')
 	{
 		i = 0;
-		// printf("megethos olou %zu\n", ft_strlen(str));
-		// printf("megethos 1ou merous %d\n", int1);
 		frct2 = ft_strlen(str) - int1 - 1;
-		// printf("To 2o meros megethos %d\n", frct2);
 		prt2 = (char *)malloc(sizeof(char) * (frct2 + 1));
 		while (i < frct2)
 		{
@@ -82,9 +82,15 @@ double	ft_atof(const char *str)
 		}
 		prt2[frct2] = '\0';
 		p2 = ft_atoi(prt2);
-		printf("To 2o merosss %d\n", p2);
-		free(prt2);
+		printf("To 2o merosss p2 %f\n", (double)p2/pow(10,frct2));
+		// free(prt2);
 	}
+
+	final = p1 + p2 / pow(10, frct2);
+	printf("finale %f\n", final);
+	free(prt1);
+	free(prt2);
+	
 	return (0);
 }
 
@@ -92,7 +98,7 @@ int	main()
 {
 	char	*a;
 
-	a = "123.123456";
+	a = "-0.001.3we";
 	ft_atof(a);
 	return (0);
 }

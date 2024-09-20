@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 22:16:40 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/20 23:03:19 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,16 @@ void				parse_input(int argc, char **argv, t_counter *counter);
 void				parse_input_line(char *line, t_counter *counter);
 void				put_shape_node(t_shape *shape);
 void				put_light_node(t_light *light);
+void				parse_camera(char **d);
+void				parse_light(char **d);
+void				parse_cylinder(char **d);
+void				parse_sphere(char **d);
+void				parse_plane(char **d);
+void				put_shape_node(t_shape *shape);
+void				put_light_node(t_light *light);
+t_vec				parse_vector(char *str);
+t_color				parse_color(char *str);
+void				parse_ambient(char **d);
 
 // colors
 int					rgb_to_int(t_color c);

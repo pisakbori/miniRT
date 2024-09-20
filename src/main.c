@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 22:08:41 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:46:30 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	check_leaks(void)
 // atexit(check_leaks);
 int	main(int argc, char *argv[])
 {
-	t_data	img;
-	t_vars	v;
+	t_data		img;
+	t_vars		v;
 	t_counter	counter;
 
 	init_state();

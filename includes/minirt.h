@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 13:49:05 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:16:40 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # endif
 
 typedef t_vec		t_point;
+
+typedef struct s_counter
+{
+	int	count_a;
+	int	count_c;
+	int	count_l;
+}				t_counter;
 
 typedef struct s_color
 {
@@ -124,8 +131,8 @@ typedef struct s_state
 }					t_state;
 
 // parse
-void				parse_input(int argc, char **argv);
-void				parse_input_line(char *line);
+void				parse_input(int argc, char **argv, t_counter *counter);
+void				parse_input_line(char *line, t_counter *counter);
 void				put_shape_node(t_shape *shape);
 void				put_light_node(t_light *light);
 

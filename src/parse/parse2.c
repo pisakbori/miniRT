@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 14:12:17 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:46:32 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,17 +134,26 @@ void	parse_plane(char **d)
 	put_shape_node(s);
 }
 
-void	parse_input_line(char *line)
+void	parse_input_line(char *line, t_counter *counter)
 {
 	char	**words;
 
 	words = ft_split(line, ' ');
 	if (ft_str_equal(words[0], "A"))
+	{
 		parse_ambient(words);
+		counter->count_a += 1;
+	}
 	else if (ft_str_equal(words[0], "C"))
+	{
 		parse_camera(words);
+		counter->count_c += 1;
+	}
 	else if (ft_str_equal(words[0], "L"))
+	{
 		parse_light(words);
+		counter->count_l += 1;
+	}
 	else if (ft_str_equal(words[0], "cy"))
 		parse_cylinder(words);
 	else if (ft_str_equal(words[0], "sp"))

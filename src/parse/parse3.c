@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/23 23:20:00 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:33:40 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,21 @@ t_vec	parse_vector(char *str)
 
 	words = ft_split(str, ',');
 	res.x = ft_atof(words[0]);
+	printf("x--->%f\n",res.x);
 	res.y = ft_atof(words[1]);
+	printf("y--->%f\n",res.y);
 	res.z = ft_atof(words[2]);
+	printf("z--->%f\n",res.z);
 	free_split_arr(words);
-	return (res);
+	if ((res.x >= -1 && res.x <= 1) && (res.y >= -1 && res.y <= 1) && \
+	(res.z >= -1 && res.z <= 1))
+		return (res);
+	else
+	{
+		exit_on_error("3D normalized orientation vector with x,y,z axis \
+must be in range [-1,1]");
+		return (res);
+	}
 }
 
 t_color	parse_color(char *str)

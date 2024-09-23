@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 23:03:19 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:04:57 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ typedef t_vec		t_point;
 
 typedef struct s_counter
 {
-	int	count_a;
-	int	count_c;
-	int	count_l;
-}				t_counter;
+	int				count_a;
+	int				count_c;
+	int				count_l;
+}					t_counter;
 
 typedef struct s_color
 {
@@ -214,4 +214,10 @@ void				rotate_object(int i, t_vec v, int deg);
 
 // shape utils
 float				solve_quadratic(float a, float b, float c);
+
+// mlx_utils
+int					handle_key_press(int k, t_vars *vars);
+int					close_win(t_vars *vars);
+int					put_picture_to_window(t_vars *vars);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 13:46:05 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:00:55 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,33 @@ t_color	color_from_shape(t_light light, t_ray camera_ray, float t,
 	return (light.color);
 }
 
-void	ray_color(t_ray *camera_ray)
+t_color	sum_lights(t_shape *shape_pt, t_ray camera_ray, float min_value)
 {
-	t_list	*light_lst;
-	t_list	*shape_lst;
 	t_color	sum;
+	t_list	*light_lst;
 	t_color	c;
 	t_light	*l;
+
+	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0.f};
+	if (shape_pt)
+	{
+		sum = sum_color(sum, state()->ambient.color);
+		multiply_color(&sum, shape_pt->color);
+	}
+	light_lst = state()->lights;
+	while (light_lst && shape_pt)
+	{
+		l = (t_light *)light_lst->content;
+		c = color_from_shape(*l, camera_ray, min_value, *shape_pt);
+		sum = sum_color(sum, c);
+		light_lst = light_lst->next;
+	}
+	return (sum);
+}
+
+void	ray_color(t_ray *camera_ray)
+{
+	t_list	*shape_lst;
 	t_hit	h;
 	float	min_value;
 	t_shape	*shape_pt;
@@ -98,19 +118,5 @@ void	ray_color(t_ray *camera_ray)
 		}
 		shape_lst = shape_lst->next;
 	}
-	sum = (t_color){.r = 0, .g = 0, .b = 0, .brightness = 0.f};
-	if (shape_pt)
-	{
-		sum = sum_color(sum, state()->ambient.color);
-		multiply_color(&sum, shape_pt->color);
-	}
-	light_lst = state()->lights;
-	while (light_lst && shape_pt)
-	{
-		l = (t_light *)light_lst->content;
-		c = color_from_shape(*l, *camera_ray, min_value, *shape_pt);
-		sum = sum_color(sum, c);
-		light_lst = light_lst->next;
-	}
-	camera_ray->color = sum;
+	camera_ray->color = sum_lights(shape_pt, *camera_ray, min_value);
 }

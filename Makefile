@@ -5,7 +5,7 @@ LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM      		= rm -rf
-WIN_WIDTH		= 2024
+WIN_WIDTH		= 1024
 FILES			=	test/3planes\
 					test/has_cylinder\
 					test/shared1\
@@ -32,7 +32,8 @@ FILES			=	test/3planes\
 					parse/parse2\
 					parse/parse3\
 					translate\
-					rotate
+					rotate\
+					mlx_utils
 MINILIBX		= mlx/libmlx.a
 LIBFT			= libft/libft.a
 NAME			= miniRT

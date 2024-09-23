@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/20 22:55:11 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:46:00 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_vec	parse_vector(char *str)
 	t_vec	res;
 
 	words = ft_split(str, ',');
-	res.x = atof(words[0]);
-	res.y = atof(words[1]);
-	res.z = atof(words[2]);
+	res.x = ft_atof(words[0]);
+	res.y = ft_atof(words[1]);
+	res.z = ft_atof(words[2]);
 	free_split_arr(words);
 	return (res);
 }
@@ -59,6 +59,6 @@ void	parse_ambient(char **d)
 	t_color	c;
 
 	c = parse_color(d[2]);
-	c.brightness = atof(d[1]);
+	c.brightness = ft_atof(d[1]);
 	state()->ambient.color = c;
 }

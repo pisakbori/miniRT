@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 22:52:54 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:46:00 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_camera(char **d)
 
 	vp = parse_vector(d[1]);
 	orientation = parse_vector(d[2]);
-	state()->cam.fov_deg = atof(d[3]);
+	state()->cam.fov_deg = ft_atof(d[3]);
 	state()->cam.fov = (float)state()->cam.fov_deg * (M_PI / 180.0f);
 	state()->cam.view_point = vp;
 	state()->cam.orientation = orientation;
@@ -34,7 +34,7 @@ void	parse_light(char **d)
 	light = ft_calloc(1, sizeof(t_light));
 	light->pos = parse_vector(d[1]);
 	light->color = parse_color(d[3]);
-	light->color.brightness = atof(d[2]);
+	light->color.brightness = ft_atof(d[2]);
 	put_light_node(light);
 }
 
@@ -46,10 +46,10 @@ void	parse_cylinder(char **d)
 	t_shape		*s;
 	t_cylinder	*c;
 
-	h = atof(d[4]);
+	h = ft_atof(d[4]);
 	cylinder_pos = parse_vector(d[1]);
 	cylinder_axis = parse_vector(d[2]);
-	c = get_cylinder(cylinder_pos, cylinder_axis, atof(d[3]), h);
+	c = get_cylinder(cylinder_pos, cylinder_axis, ft_atof(d[3]), h);
 	s = put_cylinder(c, parse_color(d[5]));
 	put_shape_node(s);
 }
@@ -62,7 +62,7 @@ void	parse_sphere(char **d)
 	t_shape	*s;
 
 	sphere_pos = parse_vector(d[1]);
-	diameter = atof(d[2]);
+	diameter = ft_atof(d[2]);
 	color = parse_color(d[3]);
 	s = put_sphere(sphere_pos, color, diameter / 2.f);
 	put_shape_node(s);

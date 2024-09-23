@@ -11,7 +11,7 @@ Costas:
 
 ✅atof
 
-to change everywhere atof with ft_atof
+✅to change everywhere atof with ft_atof
 
 fix :when we run it double print .rt file
 

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 19:14:30 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 18:53:15 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:45:18 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_cylinder	*get_cylinder(t_point pos, t_vec axis, float d, float h)
 	bottom_center = pos;
 	add(&top_center, axis);
 	subtract(&bottom_center, axis);
-	scale(&axis, -1.f);
+	scale(&s->axis, -1.f);
 	s->bottom = (t_plane){.r0 = bottom_center, .v = s->axis};
-	scale(&axis, -1.f);
+	scale(&s->axis, -1.f);
 	s->top = (t_plane){.r0 = top_center, .v = s->axis};
 	return (s);
 }

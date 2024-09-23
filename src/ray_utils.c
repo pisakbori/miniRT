@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:20:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 18:54:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:38:33 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,25 @@ float	get_illumination(t_vec from_camera, t_hit hit)
 	float	diffuse;
 	float	specular;
 	t_vec	reflected;
+	float	camera_outside;
 
 	to_camera = from_camera;
 	scale(&to_camera, -1.f);
-	diffuse = K_DIFFUSE * dot(hit.surface_to_light, hit.normal);
-	if (diffuse < 0)
-		diffuse = 0;
+	diffuse = dot(hit.surface_to_light, hit.normal);
+	camera_outside = dot(to_camera, hit.normal);
+	if (camera_outside * diffuse < 0.f)
+		return (0);
+	if (diffuse < 0.f)
+	{
+		diffuse = -diffuse;
+		scale(&hit.normal, -1.f);
+	}
 	reflected = hit.normal;
-	scale(&hit.normal, 2.f * dot(hit.surface_to_light, hit.normal));
-	subtract(&hit.normal, hit.surface_to_light);
-	specular = powf(dot(reflected, to_camera), 10.f);
+	scale(&reflected, 2.f * dot(hit.surface_to_light, hit.normal));
+	subtract(&reflected, hit.surface_to_light);
+	specular = K_SPECULAR * powf(dot(reflected, to_camera), 9.f);
+	if (specular < 0)
+		specular = 0;
+	diffuse *= K_DIFFUSE;
 	return (diffuse + specular);
 }

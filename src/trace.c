@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 18:47:05 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:46:05 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_shadow(t_vec light_pos, t_ray ray, t_hit this_hit)
 		{
 			other_t = d_sq(light_pos, other_hit.hit_point);
 			this_t = d_sq(light_pos, this_hit.hit_point);
-			if (other_t + 0.01f < this_t)
+			if (other_t + 0.05f < this_t)
 				return (1);
 		}
 		shape_lst = shape_lst->next;
@@ -56,6 +56,7 @@ t_color	color_from_shape(t_light light, t_ray camera_ray, float t,
 {
 	t_ray	ray_light_to_shape;
 	t_hit	this_hit;
+	float	illumination;
 
 	ray_light_to_shape = light_to_shape(t, camera_ray, light.pos);
 	this_hit = ray_hit(shape, ray_light_to_shape);
@@ -64,8 +65,10 @@ t_color	color_from_shape(t_light light, t_ray camera_ray, float t,
 	if (is_shadow(light.pos, ray_light_to_shape, this_hit))
 		light.color.brightness = 0.f;
 	else
-		light.color.brightness *= get_illumination(camera_ray.v, this_hit)
-			* 0.5f;
+	{
+		illumination = get_illumination(camera_ray.v, this_hit);
+		light.color.brightness *= illumination;
+	}
 	return (light.color);
 }
 

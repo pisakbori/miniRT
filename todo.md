@@ -1,7 +1,6 @@
 Bori:
 separate bonus from mandatory?
 create examples for all eval criteria, in order
-check for insides of objects
 fix norminette
 clean 	float			brightness; in color
 

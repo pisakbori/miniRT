@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/23 15:40:43 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 21:34:22 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_color	parse_color(char *str)
 	t_color	res;
 
 	words = ft_split(str, ',');
-	res.r = atoi(words[0]);
-	res.g = atoi(words[1]);
-	res.b = atoi(words[2]);
+	res.r = ft_atoi(words[0]);
+	res.g = ft_atoi(words[1]);
+	res.b = ft_atoi(words[2]);
 	free_split_arr(words);
 	return (res);
 }

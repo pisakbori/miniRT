@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 16:10:14 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:29:38 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	check_leaks(void)
 	system("leaks miniRT");
 }
 
-// atexit(check_leaks);
 int	main(int argc, char *argv[])
 {
 	t_data		img;
 	t_vars		v;
 	t_counter	counter;
 
+	atexit(check_leaks);
 	init_state();
 	parse_input(argc, argv, &counter);
 	print_state();

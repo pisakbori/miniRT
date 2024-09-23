@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:38:42 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/23 15:47:10 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:58:10 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,3 @@ double	ft_atof(const char *str)
 	result *= pow(10, scientific_notation(&str));
 	return (sign * result);
 }
-
-/* ----------TEST-------------- */
-/* int main() {
-	printf("%f\n", ft_atof(" -123.456e-2"));	// Should print: -0.000000
-	printf("%f\n", ft_atof("14e2"));
-	printf("%f\n", atof("14e2"));
-	printf("%f\n", ft_atof("-0"));	// Should print: -0.000000
-	printf("%f\n", ft_atof("-0.0"));  // Should print: -0.000000
-	printf("%f\n", ft_atof("0.0"));   // Should print: 0.000000
-	printf("%f\n", ft_atof("123.456"));// Should print: 123.456000
-	printf("%f\n", ft_atof("-123.456"));// Should print: -123.456000
-	return (0);
-} */

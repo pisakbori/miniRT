@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 16:04:57 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:07:52 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,20 +186,6 @@ int					index_of_closest(t_hit *ts, int n);
 void				ray_color(t_ray *ray);
 t_vec				ray_in_t(t_ray r, float t);
 float				get_illumination(t_vec from_camera, t_hit hit);
-
-// test views
-void				put_test1_view(void);
-void				put_test2_view(void);
-void				put_camera_above(void);
-void				put_light_above(void);
-void				put_camera_diagonal(void);
-void				put_red_sphere_x(void);
-void				put_blue_sphere_y(void);
-void				put_yz_plane(void);
-void				put_bottom_plane(void);
-void				put_light_x(void);
-void				put_ambient(void);
-void				put_shape_node(t_shape *shape);
 
 // light sources
 t_ray				light_to_shape(float time, t_ray camera_ray,

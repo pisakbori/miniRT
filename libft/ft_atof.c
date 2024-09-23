@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:38:42 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/20 14:22:00 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:47:10 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ double	scientific_notation(const char **str)
 		expo = expo * 10 + (**str - '0');
 		(*str)++;
 	}
-	printf("exposing * expo %f\n", expo_sign * expo);
 	return (expo_sign * expo);
 }
 
@@ -102,5 +101,5 @@ double	ft_atof(const char *str)
 	printf("%f\n", ft_atof("0.0"));   // Should print: 0.000000
 	printf("%f\n", ft_atof("123.456"));// Should print: 123.456000
 	printf("%f\n", ft_atof("-123.456"));// Should print: -123.456000
-	return 0;
+	return (0);
 } */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 22:46:30 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:47:52 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	paint_pixels(t_vars *v)
 		{
 			ray = create_camera_ray(i, j);
 			ray_color(&ray);
-			// gamma_correct(&ray.color);
+			gamma_correct(&ray.color);
 			img_mlx_pixel_put(*v, i, j, rgb_to_int(ray.color));
 		}
 	}

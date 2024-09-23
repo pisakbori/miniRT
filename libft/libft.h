@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:13:47 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/11 18:01:30 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:46:03 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int					ft_arr_len(char **arr);
 int					ft_is_space(char c);
 int					ft_str_equal(char *str1, char *str2);
 void				free_split_arr(char **res);
+double				ft_atof(const char *str);
 
 #endif

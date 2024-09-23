@@ -9,3 +9,6 @@
 check in parsing which ones have to be normalized and which not
 - check get length function as to be normalized and have 1
 - there should be at least 1 camera check sheet !
+
+- free_split_arr(d); why no leaks without it??
+- check leaks in linux too!

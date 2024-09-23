@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/23 22:00:27 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:20:00 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,16 @@ t_color	parse_color(char *str)
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);
 	free_split_arr(words);
-	return (res);
+	if ((res.r >= 0 && res.r <= 255) && (res.b >= 0 && res.b <= 255) && \
+	(res.g >= 0 && res.g <= 255))
+		return (res);
+	else
+	{
+		exit_on_error("'R','G','B', colours ratio must be in range [0,255]");
+		return (res);
+	}
 }
+
 
 void	parse_ambient(char **d)
 {
@@ -63,7 +71,7 @@ void	parse_ambient(char **d)
 		c.brightness = ft_atof(d[1]);
 	else
 	{
-		// free_split_arr(d);
+		free_split_arr(d);
 		exit_on_error("'A':ambient lighting ratio must be in range [0.0,1.0]");
 	}
 	state()->ambient.color = c;

@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/23 21:48:16 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:00:27 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void	parse_ambient(char **d)
 	if (ft_atof(d[1]) >= 0 && ft_atof(d[1]) <= 1)
 		c.brightness = ft_atof(d[1]);
 	else
+	{
+		// free_split_arr(d);
 		exit_on_error("'A':ambient lighting ratio must be in range [0.0,1.0]");
+	}
 	state()->ambient.color = c;
 }

@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 19:03:42 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:56:07 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	t_vars		v;
 	t_counter	counter;
 
-	// atexit(check_leaks);
+	atexit(check_leaks);
 	init_state();
 	parse_input(argc, argv, &counter);
 	print_state();

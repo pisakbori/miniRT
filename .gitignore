@@ -1,4 +1,4 @@
 **/*.o
 **/*.a
-fdf_original
-fdf
+miniRT
+obj

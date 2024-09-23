@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"sstream": "c",
+		"__locale": "c",
+		"minirt.h": "c"
+	}
+}

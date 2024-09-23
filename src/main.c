@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 14:22:25 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:46:30 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,12 @@ void	check_leaks(void)
 // atexit(check_leaks);
 int	main(int argc, char *argv[])
 {
-	t_data	img;
-	t_vars	v;
+	t_data		img;
+	t_vars		v;
+	t_counter	counter;
 
 	init_state();
-	parse_input(argc, argv);
+	parse_input(argc, argv, &counter);
 	print_state();
 	do_translation_rotation();
 	print_state();

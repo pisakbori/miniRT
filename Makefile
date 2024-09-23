@@ -30,6 +30,7 @@ FILES			=	test/3planes\
 					colors\
 					parse/parse\
 					parse/parse2\
+					parse/parse3\
 					translate\
 					rotate
 MINILIBX		= mlx/libmlx.a

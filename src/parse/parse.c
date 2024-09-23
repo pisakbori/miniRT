@@ -6,31 +6,44 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/20 22:50:09 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:43:13 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+int	parse_element(char **words, t_counter counter)
+{
+	if (ft_str_equal(words[0], "A"))
+	{
+		parse_ambient(words);
+		counter.count_a += 1;
+		return 1;
+	}
+	else if (ft_str_equal(words[0], "C"))
+	{
+		parse_camera(words);
+		counter.count_c += 1;
+		return 1;
+	}
+	else if (ft_str_equal(words[0], "L"))
+	{
+		parse_light(words);
+		counter.count_l += 1;
+		return 1;
+	}
+	return 0;
+}
 
 void	parse_input_line(char *line, t_counter *counter)
 {
 	char	**words;
 
 	words = ft_split(line, ' ');
-	if (ft_str_equal(words[0], "A"))
+	if (parse_element(words, *counter))
 	{
-		parse_ambient(words);
-		counter->count_a += 1;
-	}
-	else if (ft_str_equal(words[0], "C"))
-	{
-		parse_camera(words);
-		counter->count_c += 1;
-	}
-	else if (ft_str_equal(words[0], "L"))
-	{
-		parse_light(words);
-		counter->count_l += 1;
+		free_split_arr(words);
+		return ;
 	}
 	else if (ft_str_equal(words[0], "cy"))
 		parse_cylinder(words);
@@ -38,6 +51,13 @@ void	parse_input_line(char *line, t_counter *counter)
 		parse_sphere(words);
 	else if (ft_str_equal(words[0], "pl"))
 		parse_plane(words);
+	else
+		{
+			fprintf(stderr, "-----------%s\n", words[0]);
+			fprintf(stderr, "Only A,C,L ,cy ,sp , pl etc.. allowed");
+			free_split_arr(words);
+			exit(1);
+		}
 	free_split_arr(words);
 }
 
@@ -68,7 +88,7 @@ void	parse_input(int argc, char **argv, t_counter *count)
 	{
 		free(line);
 		line = get_next_line(fd);
-		if (line)
+		if (line && ft_strlen(line))
 			parse_input_line(line, count);
 		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)
 			exit_on_error("A,C,L can only be declared once in the scene");

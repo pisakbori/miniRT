@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/25 21:38:57 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 00:15:59 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	parse_element(char **words, t_counter *counter)
 	else if (ft_str_equal(words[0], "L"))
 	{
 		parse_light(words);
-		counter->count_l += 1;
+		if (BONUS == 0)
+			counter->count_l += 1;
 		return (1);
 	}
 	return (0);
@@ -89,6 +90,7 @@ void	parse_input(int argc, char **argv, t_counter *count)
 	{
 		free(line);
 		line = get_next_line(fd);
+		printf("line = %s\n", line);
 		if (line)
 			parse_input_line(line, count);
 		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)

@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 01:05:42 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 01:19:16 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	parse_input_line(char *line, t_counter *counter)
 		parse_sphere(words);
 	else if (ft_str_equal(words[0], "pl"))
 		parse_plane(words);
-	else if (words[0][0] == 10)
+	else if (words[0][0] == 10 || (words[0][0] == '#'))
 	{
 		free_split_arr(words);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/25 22:22:31 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:09:57 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,13 @@ void	parse_camera(char **d)
 
 	vp = parse_vector(d[1], 0);
 	orientation = parse_vector(d[2], 1);
-	state()->cam.fov_deg = atof(d[3]);
+	if (atof(d[3]) >= 0 && atof(d[3]) <= 180)
+		state()->cam.fov_deg = atof(d[3]);
+	else
+	{
+		free_split_arr(d);
+		exit_on_error("Horizontal field of view must me in range [0,180]");
+	}
 	state()->cam.fov = (float)state()->cam.fov_deg * (M_PI / 180.0f);
 	state()->cam.view_point = vp;
 	state()->cam.orientation = orientation;

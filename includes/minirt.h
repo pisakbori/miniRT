@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 18:59:46 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:15:25 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void				parse_sphere(char **d);
 void				parse_plane(char **d);
 void				put_shape_node(t_shape *shape);
 void				put_light_node(t_light *light);
-t_vec				parse_vector(char *str);
+t_vec				parse_vector(char *str, int c);
 t_color				parse_color(char *str);
 void				parse_ambient(char **d);
 void				exit_on_error(char *str);

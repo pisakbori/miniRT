@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/25 22:38:16 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:04:39 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,8 @@ t_color	parse_color(char *str)
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);
 	free_split_arr(words);
-	if ((res.r >= 0 && res.r <= 255) && (res.b >= 0 && res.b <= 255) && \
-	(res.g >= 0 && res.g <= 255))
-		return (res);
-	else
-	{
+	if (!((res.r >= 0 && res.r <= 255) && (res.b >= 0 && res.b <= 255) && \
+	(res.g >= 0 && res.g <= 255)))
 		exit_on_error("'R','G','B', colours ratio must be in range [0,255]");
-		return (res);
-	}
+	return (res);
 }

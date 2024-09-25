@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/25 23:09:57 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:14:55 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,13 @@ void	parse_light(char **d)
 	light = ft_calloc(1, sizeof(t_light));
 	light->pos = parse_vector(d[1], 0);
 	light->color = parse_color(d[3]);
-	light->color.brightness = atof(d[2]);
+	if (atof(d[2]) >=0 && atof(d[2]) <= 1)
+		light->color.brightness = atof(d[2]);
+	else
+	{
+		free_split_arr(d);
+		exit_on_error("Light brightness ratio must be in range [0.0,1.0]");
+	}
 	put_light_node(light);
 }
 

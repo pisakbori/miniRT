@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 18:03:43 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/25 23:14:55 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/25 23:24:13 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_light(char **d)
 	light = ft_calloc(1, sizeof(t_light));
 	light->pos = parse_vector(d[1], 0);
 	light->color = parse_color(d[3]);
-	if (atof(d[2]) >=0 && atof(d[2]) <= 1)
+	if (atof(d[2]) >= 0 && atof(d[2]) <= 1)
 		light->color.brightness = atof(d[2]);
 	else
 	{
@@ -73,9 +73,19 @@ void	parse_cylinder(char **d)
 	t_shape		*s;
 	t_cylinder	*c;
 
+	if (atof(d[4]) <= 0)
+	{
+		free_split_arr(d);
+		exit_on_error("Cylinder's height must be a positive number!");
+	}
 	h = atof(d[4]);
 	cylinder_pos = parse_vector(d[1], 0);
 	cylinder_axis = parse_vector(d[2], 1);
+	if (atof(d[3]) <= 0)
+	{
+		free_split_arr(d);
+		exit_on_error("Cylinder's diameter must be a positive number!");
+	}
 	c = get_cylinder(cylinder_pos, cylinder_axis, atof(d[3]), h);
 	s = put_cylinder(c, parse_color(d[5]));
 	put_shape_node(s);
@@ -89,6 +99,11 @@ void	parse_sphere(char **d)
 	t_shape	*s;
 
 	sphere_pos = parse_vector(d[1], 0);
+	if (atof(d[2]) <= 0)
+	{
+		free_split_arr(d);
+		exit_on_error("Shere's diameter must be a positive number!");
+	}
 	diameter = atof(d[2]);
 	color = parse_color(d[3]);
 	s = put_sphere(sphere_pos, color, diameter / 2.f);

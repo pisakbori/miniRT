@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 00:15:59 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 01:05:42 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	parse_input_line(char *line, t_counter *counter)
 
 void	exit_on_error(char *str)
 {
-	printf("Error\n%s\n", str);
+	printf("Error:%s\n", str);
 	exit(EXIT_FAILURE);
 }
 
@@ -90,7 +90,6 @@ void	parse_input(int argc, char **argv, t_counter *count)
 	{
 		free(line);
 		line = get_next_line(fd);
-		printf("line = %s\n", line);
 		if (line)
 			parse_input_line(line, count);
 		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)

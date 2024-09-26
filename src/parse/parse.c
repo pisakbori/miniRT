@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 20:14:00 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:24:28 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void	parse_input_split(int fd, char *line, t_counter *count)
 	{
 		free(line);
 		line = get_next_line(fd);
+		if (line && line[0] == '#')
+			continue ;
 		if (line)
 			parse_input_line(line, count);
 		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)

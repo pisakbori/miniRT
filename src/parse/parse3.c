@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/26 21:23:04 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 22:11:09 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_array_length(char **ar)
 	size_t	count;
 
 	count = 0;
-	while (ar[count] != NULL)
+	while (ar[count] != NULL && ar[count][0] != '\n')
 		count++;
 	return (count);
 }
@@ -83,16 +83,15 @@ t_color	parse_color(char *str)
 	t_color	res;
 	int		i;
 
-	i = 1;
+	i = -1;
 	words = ft_split(str, ',');
 	if (ft_array_length(words) != 3)
 		exit_on_error("Invalid file content.Check colours.", NULL);
-	while (i++ <= 3)
+	while (++i <= 2)
 	{
 		if (ft_atof(words[i]) - ft_atoi(words[i]) != 0)
 			exit_on_error("Decimals are forbiden in R,B,G values.", NULL);
 	}
-	printf("----A-------%f\n", ft_atof(words[0]) - ft_atoi(words[0]));
 	res.r = ft_atoi(words[0]);
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);

@@ -6,18 +6,18 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/26 16:55:27 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:52:24 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-size_t	count_words(char **words)
+size_t	ft_array_length(char **ar)
 {
 	size_t	count;
 
 	count = 0;
-	while (words[count] != NULL)
+	while (ar[count] != NULL)
 		count++;
 	return (count);
 }
@@ -29,6 +29,8 @@ void	parse_plane(char **d)
 	t_color	color;
 	t_shape	*s;
 
+	if (ft_array_length(d) != 4)
+		exit_on_error("Wrong number of arguments given in Plane", d);
 	plane_pos = parse_vector(d[1], 0);
 	normal = parse_vector(d[2], 1);
 	normalize(&normal);
@@ -59,8 +61,8 @@ t_vec	parse_vector(char *str, int c)
 	t_vec	res;
 
 	words = ft_split(str, ',');
-	if (count_words(words) != 3)
-		exit_on_error("Invalid file content.Check coordinates.");
+	if (ft_array_length(words) != 3)
+		exit_on_error("Invalid file content.Check coordinates.", NULL);
 	res.x = ft_atof(words[0]);
 	res.y = ft_atof(words[1]);
 	res.z = ft_atof(words[2]);
@@ -70,7 +72,7 @@ t_vec	parse_vector(char *str, int c)
 		if (!((res.x >= -1 && res.x <= 1) && (res.y >= -1 && res.y <= 1) \
 		&& (res.z >= -1 && res.z <= 1)))
 			exit_on_error("3D normalized orientation vector with x,y,z axis \
-must be in range [-1,1]");
+must be in range [-1,1]", NULL);
 	}
 	return (res);
 }
@@ -81,15 +83,15 @@ t_color	parse_color(char *str)
 	t_color	res;
 
 	words = ft_split(str, ',');
-	if (count_words(words) != 3)
-		exit_on_error("Invalid file content.Check colours.");
+	if (ft_array_length(words) != 3)
+		exit_on_error("Invalid file content.Check colours.", NULL);
 	res.r = ft_atoi(words[0]);
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);
 	free_split_arr(words);
 	if (!((res.r >= 0 && res.r <= 255) && (res.b >= 0 && res.b <= 255) && \
 	(res.g >= 0 && res.g <= 255)))
-		exit_on_error("'R','G','B', colours ratio must be in range [0,255]");
+		exit_on_error("'R','G','B', colours ratio must be in range [0,255]", NULL);
 	return (res);
 }
 

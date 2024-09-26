@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/25 23:43:01 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:17:01 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,9 @@ void				put_light_node(t_light *light);
 t_vec				parse_vector(char *str, int c);
 t_color				parse_color(char *str);
 void				parse_ambient(char **d);
-void				exit_on_error(char *str);
+size_t				ft_array_length(char **ar);
+void				exit_on_error(char *str, char**d);
+
 
 // colors
 int					rgb_to_int(t_color c);

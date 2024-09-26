@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 01:19:16 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:57:50 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,22 @@ void	parse_input_line(char *line, t_counter *counter)
 
 void	exit_on_error(char *str)
 {
-	printf("Error:%s\n", str);
+	printf("Error: %s\n", str);
 	exit(EXIT_FAILURE);
+}
+
+void	parse_input_split(int fd, char *line, t_counter *count)
+{
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		if (line)
+			parse_input_line(line, count);
+		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)
+			exit_on_error("A,C,L can only be declared once in the scene");
+	}
+	close(fd);
 }
 
 void	parse_input(int argc, char **argv, t_counter *count)
@@ -85,15 +99,11 @@ void	parse_input(int argc, char **argv, t_counter *count)
 	if (fd == -1)
 		exit_on_error("Unable to open file.");
 	line = get_next_line(fd);
-	parse_input_line(line, count);
-	while (line)
+	if (!line)
 	{
-		free(line);
-		line = get_next_line(fd);
-		if (line)
-			parse_input_line(line, count);
-		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)
-			exit_on_error("A,C,L can only be declared once in the scene");
+		close(fd);
+		exit_on_error("Empty file given!");
 	}
-	close(fd);
+	parse_input_line(line, count);
+	parse_input_split(fd, line, count);
 }

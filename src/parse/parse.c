@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 22:29:06 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:26:45 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ int	parse_element(char **words, t_counter *counter)
 	else if (ft_str_equal(words[0], "L"))
 	{
 		parse_light(words);
-		if (BONUS == 0)
-			counter->count_l += 1;
+		counter->count_l += 1;
 		return (1);
 	}
 	return (0);
@@ -81,7 +80,7 @@ void	parse_input_line(char *line, t_counter *counter)
 		parse_sphere(words);
 	else if (ft_str_equal(words[0], "pl"))
 		parse_plane(words);
-	else if (words[0][0] == 10 || (words[0][0] == '#'))
+	else if (words[0][0] == 10)
 	{
 		free_split_arr(words);
 		return ;
@@ -108,9 +107,14 @@ void	parse_input_split(int fd, char *line, t_counter *count)
 			continue ;
 		if (line)
 			parse_input_line(line, count);
-		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)
-			exit_on_error("A,C,L can only be declared once in the scene", NULL);
 	}
+	printf("count_a:%d\n",count->count_a);
+	printf("count_c:%d\n",count->count_c);
+	printf("count_l:%d\n",count->count_l);
+	printf("bonus:%d\n",BONUS);
+	if ((count->count_a != 1 || count->count_c != 1) || \
+	(BONUS == 0 && count->count_l != 1) || (BONUS == 1 && count->count_l < 1))
+		exit_on_error("A,C,L can only be declared once in the scene", NULL);
 	close(fd);
 }
 

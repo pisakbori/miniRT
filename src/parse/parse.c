@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 19:51:21 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:14:00 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	check_for_invalid_input(char **words)
 			if (!((words[i][j] >= '0' && words[i][j] <= '9') || \
 			words[i][j] == '-' || words[i][j] == '+' || words[i][j] == '.' \
 			|| words[i][j] == ',' || words[i][j] == ' ' || words[i][j] == '\t' \
-			|| words[i][j] == '\n'))
+			|| words[i][j] == '\n') || \
+			(words[i][j] == '.' && words[i][j + 1] == '.') || \
+			(words[i][j] == ',' && words[i][j + 1] == ','))
 			{
 				exit_on_error("Invalind input in arguments.", words);
 			}

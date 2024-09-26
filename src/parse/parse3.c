@@ -6,7 +6,7 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/26 19:52:24 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 21:23:04 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,25 @@ t_color	parse_color(char *str)
 {
 	char	**words;
 	t_color	res;
+	int		i;
 
+	i = 1;
 	words = ft_split(str, ',');
 	if (ft_array_length(words) != 3)
 		exit_on_error("Invalid file content.Check colours.", NULL);
+	while (i++ <= 3)
+	{
+		if (ft_atof(words[i]) - ft_atoi(words[i]) != 0)
+			exit_on_error("Decimals are forbiden in R,B,G values.", NULL);
+	}
+	printf("----A-------%f\n", ft_atof(words[0]) - ft_atoi(words[0]));
 	res.r = ft_atoi(words[0]);
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);
 	free_split_arr(words);
 	if (!((res.r >= 0 && res.r <= 255) && (res.b >= 0 && res.b <= 255) && \
 	(res.g >= 0 && res.g <= 255)))
-		exit_on_error("'R','G','B', colours ratio must be in range [0,255]", NULL);
+		exit_on_error("'R','G','B', colour must be in range [0,255]", NULL);
 	return (res);
 }
 

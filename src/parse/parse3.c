@@ -6,11 +6,21 @@
 /*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/25 23:04:39 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:55:27 by cmakario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+size_t	count_words(char **words)
+{
+	size_t	count;
+
+	count = 0;
+	while (words[count] != NULL)
+		count++;
+	return (count);
+}
 
 void	parse_plane(char **d)
 {
@@ -49,6 +59,8 @@ t_vec	parse_vector(char *str, int c)
 	t_vec	res;
 
 	words = ft_split(str, ',');
+	if (count_words(words) != 3)
+		exit_on_error("Invalid file content.Check coordinates.");
 	res.x = ft_atof(words[0]);
 	res.y = ft_atof(words[1]);
 	res.z = ft_atof(words[2]);
@@ -69,6 +81,8 @@ t_color	parse_color(char *str)
 	t_color	res;
 
 	words = ft_split(str, ',');
+	if (count_words(words) != 3)
+		exit_on_error("Invalid file content.Check colours.");
 	res.r = ft_atoi(words[0]);
 	res.g = ft_atoi(words[1]);
 	res.b = ft_atoi(words[2]);
@@ -78,3 +92,4 @@ t_color	parse_color(char *str)
 		exit_on_error("'R','G','B', colours ratio must be in range [0,255]");
 	return (res);
 }
+

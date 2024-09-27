@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 23:26:45 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:58:42 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ void	check_for_invalid_input(char **words)
 		j = 0;
 		while (words[i][j])
 		{
-			if (!((words[i][j] >= '0' && words[i][j] <= '9') || \
-			words[i][j] == '-' || words[i][j] == '+' || words[i][j] == '.' \
-			|| words[i][j] == ',' || words[i][j] == ' ' || words[i][j] == '\t' \
-			|| words[i][j] == '\n') || \
-			(words[i][j] == '.' && words[i][j + 1] == '.') || \
-			(words[i][j] == ',' && words[i][j + 1] == ','))
+			if (!((words[i][j] >= '0' && words[i][j] <= '9')
+					|| words[i][j] == '-' || words[i][j] == '+'
+					|| words[i][j] == '.' || words[i][j] == ','
+					|| words[i][j] == ' ' || words[i][j] == '\t'
+					|| words[i][j] == '\n') || (words[i][j] == '.' && words[i][j
+					+ 1] == '.') || (words[i][j] == ',' && words[i][j
+					+ 1] == ','))
 			{
-				exit_on_error("Invalind input in arguments.", words);
+				exit_on_error("Invalind input in arguments.");
 			}
 			j++;
 		}
 		i++;
 	}
 }
-
 
 int	parse_element(char **words, t_counter *counter)
 {
@@ -69,6 +69,7 @@ void	parse_input_line(char *line, t_counter *counter)
 	char	**words;
 
 	words = ft_split(line, ' ');
+	state()->garbage.words1 = words;
 	if (parse_element(words, counter))
 	{
 		free_split_arr(words);
@@ -86,15 +87,9 @@ void	parse_input_line(char *line, t_counter *counter)
 		return ;
 	}
 	else
-		exit_on_error("Only 'A','C','L','cy','sp','pl' allowed.", words);
+		exit_on_error("Only 'A','C','L','cy','sp','pl' allowed.");
 	free_split_arr(words);
-}
-
-void	exit_on_error(char *str, char**d)
-{
-	printf("Error: %s\n", str);
-	free_split_arr(d);
-	exit(EXIT_FAILURE);
+	state()->garbage.words1 = NULL;
 }
 
 void	parse_input_split(int fd, char *line, t_counter *count)
@@ -103,18 +98,19 @@ void	parse_input_split(int fd, char *line, t_counter *count)
 	{
 		free(line);
 		line = get_next_line(fd);
+		state()->garbage.line = line;
 		if (line && line[0] == '#')
 			continue ;
 		if (line)
 			parse_input_line(line, count);
 	}
-	printf("count_a:%d\n",count->count_a);
-	printf("count_c:%d\n",count->count_c);
-	printf("count_l:%d\n",count->count_l);
-	printf("bonus:%d\n",BONUS);
-	if ((count->count_a != 1 || count->count_c != 1) || \
-	(BONUS == 0 && count->count_l != 1) || (BONUS == 1 && count->count_l < 1))
-		exit_on_error("A,C,L can only be declared once in the scene", NULL);
+	printf("count_a:%d\n", count->count_a);
+	printf("count_c:%d\n", count->count_c);
+	printf("count_l:%d\n", count->count_l);
+	printf("bonus:%d\n", BONUS);
+	if ((count->count_a != 1 || count->count_c != 1) || (BONUS == 0
+			&& count->count_l != 1) || (BONUS == 1 && count->count_l < 1))
+		exit_on_error("A,C,L can only be declared once in the scene");
 	close(fd);
 }
 
@@ -125,17 +121,18 @@ void	parse_input(int argc, char **argv, t_counter *count)
 
 	*count = (t_counter){.count_a = 0, .count_c = 0, .count_l = 0};
 	if (argc != 2)
-		exit_on_error("Correct usage: ./miniRT <image file>", NULL);
+		exit_on_error("Correct usage: ./miniRT <image file>");
 	if (ft_strncmp((argv[1] + (ft_strlen(argv[1]) - 3)), ".rt", 3) != 0)
-		exit_on_error("Correct usage: ./miniRT <image file>.rt", NULL);
+		exit_on_error("Correct usage: ./miniRT <image file>.rt");
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		exit_on_error("Unable to open file.", NULL);
+		exit_on_error("Unable to open file.");
 	line = get_next_line(fd);
+	state()->garbage.line = line;
 	if (!line)
 	{
 		close(fd);
-		exit_on_error("Empty file given!", NULL);
+		exit_on_error("Empty file given!");
 	}
 	if (line[0] != '#')
 		parse_input_line(line, count);

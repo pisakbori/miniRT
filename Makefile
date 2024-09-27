@@ -27,6 +27,7 @@ FILES			=	test/debug_print1\
 					parse/parse\
 					parse/parse2\
 					parse/parse3\
+					parse/parse4\
 					translate\
 					rotate\
 					mlx_utils

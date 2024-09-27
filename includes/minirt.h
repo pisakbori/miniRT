@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/26 21:05:40 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:11:01 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define K_SPECULAR 1.f
 # define K_DIFFUSE 1.f
 
-# ifndef WIN_WIDTH
+# ifndef WIN_WIDTHƒ
 #  define WIN_WIDTH 1024
 # endif
 
@@ -121,8 +121,16 @@ typedef struct s_hit
 	t_vec			hit_point;
 }					t_hit;
 
+typedef struct s_to_free
+{
+	char			*line;
+	char			**words1;
+	char			**words2;
+}					t_to_free;
+
 typedef struct s_state
 {
+	t_to_free		garbage;
 	t_camera		cam;
 	t_img_dim		dim;
 	t_vec			cam_x;
@@ -144,14 +152,10 @@ void				parse_light(char **d);
 void				parse_cylinder(char **d);
 void				parse_sphere(char **d);
 void				parse_plane(char **d);
-void				put_shape_node(t_shape *shape);
-void				put_light_node(t_light *light);
 t_vec				parse_vector(char *str, int c);
 t_color				parse_color(char *str);
 void				parse_ambient(char **d);
 size_t				ft_array_length(char **ar);
-void				exit_on_error(char *str, char**d);
-
 
 // colors
 int					rgb_to_int(t_color c);
@@ -160,8 +164,12 @@ t_color				sum_color(t_color c1, t_color c2);
 void				scale_color(t_color *color, float s);
 void				gamma_correct(t_color *c);
 
+// state, free
 t_state				*state(void);
 void				init_state(void);
+void				free_state(void);
+t_state				**get_state_ptr(void);
+void				exit_on_error(char *str);
 
 // debug
 void				print_color(t_color color);

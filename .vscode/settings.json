@@ -1,8 +1,12 @@
 {
-	"files.associations": {
-		"sstream": "c",
-		"__locale": "c",
-		"minirt.h": "c",
-		"locale": "c"
-	}
+  "files.associations": {
+    "sstream": "c",
+    "__locale": "c",
+    "minirt.h": "c",
+    "locale": "c"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "keyhr.42-c-format"
+  }
+  "editor.formatOnSave": true,
 }

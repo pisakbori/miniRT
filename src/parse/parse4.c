@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 14:07:25 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/27 14:10:40 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:52:12 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_shape_node(t_shape *shape)
 
 void	put_light_node(t_light *light)
 {
-	t_list *light_node;
+	t_list	*light_node;
 
 	light_node = ft_lstnew(light);
 	ft_lstadd_back(&state()->lights, light_node);

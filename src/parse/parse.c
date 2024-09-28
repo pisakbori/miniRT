@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/27 13:58:42 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:57:20 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	parse_input_line(char *line, t_counter *counter)
 	if (parse_element(words, counter))
 	{
 		free_split_arr(words);
+		state()->garbage.words1 = NULL;
 		return ;
 	}
 	else if (ft_str_equal(words[0], "cy"))
@@ -81,12 +82,7 @@ void	parse_input_line(char *line, t_counter *counter)
 		parse_sphere(words);
 	else if (ft_str_equal(words[0], "pl"))
 		parse_plane(words);
-	else if (words[0][0] == 10)
-	{
-		free_split_arr(words);
-		return ;
-	}
-	else
+	else if (words[0][0] != 10)
 		exit_on_error("Only 'A','C','L','cy','sp','pl' allowed.");
 	free_split_arr(words);
 	state()->garbage.words1 = NULL;

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 13:32:15 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/27 14:11:01 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/28 22:03:02 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define K_SPECULAR 1.f
 # define K_DIFFUSE 1.f
 
-# ifndef WIN_WIDTHƒ
+# ifndef WIN_WIDTH
 #  define WIN_WIDTH 1024
 # endif
 

@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:47:59 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/17 13:52:14 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/28 23:07:56 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ void	init_state(void)
 	state->dim.h = state->dim.w / aspect_ratio;
 	if (state->dim.h < 1)
 		state->dim.h = 1;
+	state->garbage.words1 = NULL;
+	state->garbage.words2 = NULL;
+	state->garbage.line = NULL;
 	*get_state_ptr() = state;
 }

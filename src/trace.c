@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/29 19:59:34 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:13:03 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_shadow(t_vec light_pos, t_hit this_hit)
 		if (!isnan(other_hit.t))
 		{
 			d_this_to_light = d_sq(light_pos, this_hit.hit_point);
-			if (other_hit.t > 0.01f && other_hit.t < sqrtf(d_this_to_light))
+			if (other_hit.t > 0.0005f && other_hit.t < sqrtf(d_this_to_light))
 				return (1);
 		}
 		shape_lst = shape_lst->next;

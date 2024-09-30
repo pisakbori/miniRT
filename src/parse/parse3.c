@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 22:47:06 by cmakario          #+#    #+#             */
-/*   Updated: 2024/09/27 14:07:34 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:38:11 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ t_vec	parse_vector(char *str, int c)
 	state()->garbage.words2 = NULL;
 	if (c == 1)
 	{
+		if (!((res.x >= -1 && res.x <= 1) && (res.y >= -1 && res.y <= 1)
+				&& (res.z >= -1 && res.z <= 1)))
+			exit_on_error("Coordinate out of range [-1,1], not normalized");
 		if (get_length(res) > 1.00001f || get_length(res) < 0.999999f)
 			exit_on_error("Vector is not normalized");
 	}

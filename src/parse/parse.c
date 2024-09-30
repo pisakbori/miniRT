@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/29 19:57:20 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:32:15 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void	check_for_invalid_input(char **words)
 		j = 0;
 		while (words[i][j])
 		{
-			if (!((words[i][j] >= '0' && words[i][j] <= '9')
-					|| words[i][j] == '-' || words[i][j] == '+'
-					|| words[i][j] == '.' || words[i][j] == ','
-					|| words[i][j] == ' ' || words[i][j] == '\t'
-					|| words[i][j] == '\n') || (words[i][j] == '.' && words[i][j
-					+ 1] == '.') || (words[i][j] == ',' && words[i][j
-					+ 1] == ','))
+			if (!((words[i][j] >= '0' && words[i][j] <= '9') || \
+			words[i][j] == '-' || words[i][j] == '+' || words[i][j] == '.' \
+			|| words[i][j] == ',' || words[i][j] == ' ' || words[i][j] == '\t' \
+			|| words[i][j] == '\n') || \
+			(words[i][j] == '.' && words[i][j + 1] == '.') || \
+			(words[i][j] == ',' && words[i][j + 1] == ','))
 			{
 				exit_on_error("Invalind input in arguments.");
 			}

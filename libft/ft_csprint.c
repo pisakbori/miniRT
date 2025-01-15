@@ -6,15 +6,19 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 18:34:13 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/03/15 10:41:02 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:33:24 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <unistd.h>
 
 int	ft_cprint(char arg, int *counter)
 {
-	if (write(1, &arg, 1) != -1)
+	int	*fd;
+
+	fd = get_printf_fd();
+	if (write(*fd, &arg, 1) != -1)
 		(*counter)++;
 	else
 		*counter = -1;

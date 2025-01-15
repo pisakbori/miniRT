@@ -1,4 +1,6 @@
 **/*.o
 **/*.a
-fdf_original
-fdf
+miniRT
+obj
+bonus-obj
+.vscode

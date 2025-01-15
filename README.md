@@ -22,7 +22,12 @@ make bonus
 
 ./miniRT ./images/atom.rt
 
+<p align="center">
 <img src="./images/random/atom.png" alt="Ray Tracer Preview" width="600"/>
+</p>
+<p align="center">
+<img src="./images/random/example2.png" alt="Ray Tracer Preview" width="600"/>
+</p>
 
 
 

@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 12:04:40 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/29 17:41:39 by bpisak-l         ###   ########.fr       */
+/*   Created: 2024/09/27 14:07:25 by bpisak-l          #+#    #+#             */
+/*   Updated: 2024/09/29 19:52:12 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	solve_quadratic(float a, float b, float c)
+void	put_shape_node(t_shape *shape)
 {
-	float	x1;
-	float	x2;
-	float	delta;
+	t_list	*shape_node;
 
-	delta = b * b - 4.f * a * c;
-	if (delta < 0.0f)
-		return (NAN);
-	x1 = (-b + sqrtf(delta)) / (2.f * a);
-	x2 = (-b - sqrtf(delta)) / (2.f * a);
-	if (x2 > 0)
-		return (x2);
-	if (x1 > 0)
-		return (x1);
-	return (NAN);
+	shape_node = ft_lstnew(shape);
+	ft_lstadd_back(&state()->shapes, shape_node);
+}
+
+void	put_light_node(t_light *light)
+{
+	t_list	*light_node;
+
+	light_node = ft_lstnew(light);
+	ft_lstadd_back(&state()->lights, light_node);
 }

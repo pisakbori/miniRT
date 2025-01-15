@@ -3,17 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:09:55 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 19:13:33 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:32:15 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	check_for_invalid_input(char **words)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (words[i])
+	{
+		j = 0;
+		while (words[i][j])
+		{
+			if (!((words[i][j] >= '0' && words[i][j] <= '9') || \
+			words[i][j] == '-' || words[i][j] == '+' || words[i][j] == '.' \
+			|| words[i][j] == ',' || words[i][j] == ' ' || words[i][j] == '\t' \
+			|| words[i][j] == '\n') || \
+			(words[i][j] == '.' && words[i][j + 1] == '.') || \
+			(words[i][j] == ',' && words[i][j + 1] == ','))
+			{
+				exit_on_error("Invalind input in arguments.");
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 int	parse_element(char **words, t_counter *counter)
 {
+	check_for_invalid_input(words);
 	if (ft_str_equal(words[0], "A"))
 	{
 		parse_ambient(words);
@@ -40,9 +68,11 @@ void	parse_input_line(char *line, t_counter *counter)
 	char	**words;
 
 	words = ft_split(line, ' ');
+	state()->garbage.words1 = words;
 	if (parse_element(words, counter))
 	{
 		free_split_arr(words);
+		state()->garbage.words1 = NULL;
 		return ;
 	}
 	else if (ft_str_equal(words[0], "cy"))
@@ -51,23 +81,32 @@ void	parse_input_line(char *line, t_counter *counter)
 		parse_sphere(words);
 	else if (ft_str_equal(words[0], "pl"))
 		parse_plane(words);
-	else if (words[0][0] == 10)
-	{
-		free_split_arr(words);
-		return ;
-	}
-	else
-	{
-		free_split_arr(words);
-		exit_on_error("Only 'A','C','L','cy','sp','pl' allowed");
-	}
+	else if (words[0][0] != 10)
+		exit_on_error("Only 'A','C','L','cy','sp','pl' allowed.");
 	free_split_arr(words);
+	state()->garbage.words1 = NULL;
 }
 
-void	exit_on_error(char *str)
+void	parse_input_split(int fd, char *line, t_counter *count)
 {
-	printf("Error\n%s\n", str);
-	exit(EXIT_FAILURE);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		state()->garbage.line = line;
+		if (line && line[0] == '#')
+			continue ;
+		if (line)
+			parse_input_line(line, count);
+	}
+	printf("count_a:%d\n", count->count_a);
+	printf("count_c:%d\n", count->count_c);
+	printf("count_l:%d\n", count->count_l);
+	printf("bonus:%d\n", BONUS);
+	if ((count->count_a != 1 || count->count_c != 1) || (BONUS == 0
+			&& count->count_l != 1) || (BONUS == 1 && count->count_l < 1))
+		exit_on_error("A,C,L can only be declared once in the scene");
+	close(fd);
 }
 
 void	parse_input(int argc, char **argv, t_counter *count)
@@ -84,15 +123,13 @@ void	parse_input(int argc, char **argv, t_counter *count)
 	if (fd == -1)
 		exit_on_error("Unable to open file.");
 	line = get_next_line(fd);
-	parse_input_line(line, count);
-	while (line)
+	state()->garbage.line = line;
+	if (!line)
 	{
-		free(line);
-		line = get_next_line(fd);
-		if (line)
-			parse_input_line(line, count);
-		if (count->count_a > 1 || count->count_c > 1 || count->count_l > 1)
-			exit_on_error("A,C,L can only be declared once in the scene");
+		close(fd);
+		exit_on_error("Empty file given!");
 	}
-	close(fd);
+	if (line[0] != '#')
+		parse_input_line(line, count);
+	parse_input_split(fd, line, count);
 }

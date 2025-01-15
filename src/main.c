@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmakario <cmakario@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 12:49:49 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 19:03:42 by cmakario         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:05:55 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	do_translation_rotation(void)
 
 void	check_leaks(void)
 {
+	*get_state_ptr() = NULL;
 	system("leaks miniRT");
 }
 
@@ -39,7 +40,6 @@ int	main(int argc, char *argv[])
 	t_vars		v;
 	t_counter	counter;
 
-	// atexit(check_leaks);
 	init_state();
 	parse_input(argc, argv, &counter);
 	print_state();

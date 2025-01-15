@@ -5,7 +5,7 @@ LIBFT_FLAGS		= -Llibft
 MLX_FLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 LFLAGS			= $(MLX_FLAGS) $(LIBFT_FLAGS)
 RM      		= rm -rf
-WIN_WIDTH		= 1024
+WIN_WIDTH		= 1280
 FILES			=	test/debug_print1\
 					test/debug_print2\
 					state\
@@ -27,6 +27,7 @@ FILES			=	test/debug_print1\
 					parse/parse\
 					parse/parse2\
 					parse/parse3\
+					parse/parse4\
 					translate\
 					rotate\
 					mlx_utils

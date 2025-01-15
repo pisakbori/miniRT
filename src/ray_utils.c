@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:20:51 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/23 13:38:33 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:03:05 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,25 @@ int	index_of_closest(t_hit *arr, int n)
 	return (index);
 }
 
+float	get_specular(t_hit hit, t_vec to_camera)
+{
+	t_vec	reflected;
+	float	specular;
+
+	reflected = hit.normal;
+	scale(&reflected, 2.f * dot(hit.surface_to_light, hit.normal));
+	subtract(&reflected, hit.surface_to_light);
+	specular = K_SPECULAR * powf(dot(reflected, to_camera), 9.f);
+	if (specular < 0)
+		specular = 0;
+	return (specular);
+}
+
 float	get_illumination(t_vec from_camera, t_hit hit)
 {
 	t_vec	to_camera;
 	float	diffuse;
 	float	specular;
-	t_vec	reflected;
 	float	camera_outside;
 
 	to_camera = from_camera;
@@ -62,12 +75,10 @@ float	get_illumination(t_vec from_camera, t_hit hit)
 		diffuse = -diffuse;
 		scale(&hit.normal, -1.f);
 	}
-	reflected = hit.normal;
-	scale(&reflected, 2.f * dot(hit.surface_to_light, hit.normal));
-	subtract(&reflected, hit.surface_to_light);
-	specular = K_SPECULAR * powf(dot(reflected, to_camera), 9.f);
-	if (specular < 0)
-		specular = 0;
 	diffuse *= K_DIFFUSE;
-	return (diffuse + specular);
+	specular = get_specular(hit, to_camera);
+	if (BONUS)
+		return (diffuse + specular);
+	else
+		return (diffuse);
 }

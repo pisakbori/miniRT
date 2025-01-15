@@ -12,7 +12,7 @@ This is one of my favorite projects so far at 42! It implements a simple ray tra
 
 1. Clone the repository:
    
-   git clone https://github.com/pisakbori/ray-tracer.git
+   git clone https://github.com/pisakbori/miniRT.git
    
 2. Build the project:
    
@@ -21,6 +21,9 @@ make bonus
 3. Run the program with a scene, for example:
 
 ./miniRT ./images/atom.rt
+
+![Ray Tracer Preview](images/random/atom.png)
+![Ray Tracer Preview](images/random/example2.png)
 
 
 

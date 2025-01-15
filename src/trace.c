@@ -6,7 +6,7 @@
 /*   By: bpisak-l <bpisak-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:59:07 by bpisak-l          #+#    #+#             */
-/*   Updated: 2024/09/29 20:13:03 by bpisak-l         ###   ########.fr       */
+/*   Updated: 2024/10/01 09:54:40 by bpisak-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,22 @@ int	is_shadow(t_vec light_pos, t_hit this_hit)
 	t_shape	*s;
 	t_ray	ray;
 	float	d_this_to_light;
+	t_vec	eps;
 
 	shape_lst = state()->shapes;
 	ray.r0 = this_hit.hit_point;
 	ray.v = this_hit.surface_to_light;
+	eps = ray.v;
+	scale(&eps, 0.001f);
 	while (shape_lst)
 	{
 		s = (t_shape *)shape_lst->content;
+		add(&ray.r0, eps);
 		other_hit = ray_hit(*s, ray);
 		if (!isnan(other_hit.t))
 		{
 			d_this_to_light = d_sq(light_pos, this_hit.hit_point);
-			if (other_hit.t > 0.0005f && other_hit.t < sqrtf(d_this_to_light))
+			if (other_hit.t < sqrtf(d_this_to_light))
 				return (1);
 		}
 		shape_lst = shape_lst->next;
